@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { DUMMY_BOOKS } from "@/lib/dummy-data";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
+import { motion } from "framer-motion";
 
 export default function Home() {
   const plugin = React.useRef(
@@ -38,10 +39,21 @@ export default function Home() {
                    <div className="absolute inset-0 bg-zinc-950/70 z-10" />
                    
                    {/* Content */}
-                   <div className="relative z-20 w-full max-w-5xl mx-auto px-6 md:px-12 text-center flex flex-col items-center space-y-6">
-                      <span className="px-4 py-1.5 rounded-full bg-white/10 text-white/90 text-sm font-medium backdrop-blur-md border border-white/20">
+                   <motion.div 
+                     initial={{ opacity: 0, y: 40 }}
+                     whileInView={{ opacity: 1, y: 0 }}
+                     transition={{ duration: 0.8, ease: "easeOut" }}
+                     viewport={{ once: false, amount: 0.3 }}
+                     className="relative z-20 w-full max-w-5xl mx-auto px-6 md:px-12 text-center flex flex-col items-center space-y-6"
+                   >
+                      <motion.span 
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                        className="px-4 py-1.5 rounded-full bg-white/10 text-white/90 text-sm font-medium backdrop-blur-md border border-white/20"
+                      >
                         Featured Book
-                      </span>
+                      </motion.span>
                       <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white drop-shadow-md">
                         {book.title}
                       </h1>
@@ -51,15 +63,20 @@ export default function Home() {
                       <p className="text-lg md:text-xl text-zinc-200 max-w-3xl line-clamp-3 mt-4 drop-shadow-sm">
                         {book.description}
                       </p>
-                      <div className="flex gap-4 pt-8">
+                      <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.4 }}
+                        className="flex gap-4 pt-8"
+                      >
                          <Button size="lg" className="bg-white text-black hover:bg-zinc-200 h-12 px-8 text-base">
                            Borrow Now
                          </Button>
                          <Button size="lg" variant="outline" className="text-white border-white/30 hover:bg-white/20 h-12 px-8 text-base backdrop-blur-sm">
                            Read Summary
                          </Button>
-                      </div>
-                   </div>
+                      </motion.div>
+                   </motion.div>
                  </div>
               </CarouselItem>
             ))}
@@ -71,13 +88,19 @@ export default function Home() {
       
       {/* Search Bar Section */}
       <section className="w-full py-12 px-6 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800">
-        <div className="max-w-2xl mx-auto flex flex-col items-center text-center space-y-4">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          viewport={{ once: true }}
+          className="max-w-2xl mx-auto flex flex-col items-center text-center space-y-4"
+        >
           <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">Find your next adventure</h2>
           <div className="flex w-full items-center space-x-2">
             <Input type="text" placeholder="Search by title, author, or genre..." className="h-12 text-lg bg-zinc-50 dark:bg-zinc-950" />
             <Button type="submit" size="lg" className="h-12 px-8">Search</Button>
           </div>
-        </div>
+        </motion.div>
       </section>
     </div>
   );
