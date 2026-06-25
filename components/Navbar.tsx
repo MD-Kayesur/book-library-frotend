@@ -2,8 +2,9 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useTheme } from "next-themes";
-import { BookOpen, Bell, Sun, Moon, User, Menu, X } from "lucide-react";
+import { Bell, Sun, Moon, User, Menu, X } from "lucide-react";
 
 export function Navbar() {
   const { theme, setTheme } = useTheme();
@@ -27,10 +28,17 @@ export function Navbar() {
           <div className="flex items-center">
             <Link
               href="/"
-              className="flex items-center gap-2 font-bold text-lg text-zinc-900 dark:text-zinc-50 hover:opacity-90 transition-opacity"
+              className="flex items-center gap-2 font-bold text-lg text-zinc-900 dark:text-zinc-50  "
             >
-              <BookOpen className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
-              <span>BookLibrary</span>
+              <Image
+                src="/mainlogo.png"
+                alt="BookLibrary Logo"
+                width={200}
+                height={200}
+                 
+                className="object-contain"
+              />
+               
             </Link>
           </div>
 
