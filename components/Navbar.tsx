@@ -42,18 +42,24 @@ export function Navbar() {
             </Link>
           </div>
 
-          {/* Center: Navigation */}
-          <nav className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-6">
-            <Link
-              href="/books"
-              className="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-            >
-              Books
-            </Link>
-          </nav>
-
           {/* Right Side: Icons */}
           <div className="flex items-center gap-4">
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center gap-6 mr-2">
+              <Link
+                href="/"
+                className="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+              >
+                Home
+              </Link>
+              
+              <Link
+                href="/books"
+                className="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+              >
+                Search
+              </Link>
+            </nav>
             {/* Notification Bell */}
             <button className="relative p-2 rounded-full text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-zinc-50 transition-all duration-200">
               <Bell className="h-5 w-5" />
@@ -96,11 +102,19 @@ export function Navbar() {
       {isOpen && (
         <div className="md:hidden border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-4 py-4 space-y-3 transition-all duration-300">
           <Link
+            href="/"
+            onClick={() => setIsOpen(false)}
+            className="block px-3 py-2 rounded-md text-base font-medium text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-zinc-50 transition-all duration-200"
+          >
+            Home
+          </Link>
+          
+          <Link
             href="/books"
             onClick={() => setIsOpen(false)}
             className="block px-3 py-2 rounded-md text-base font-medium text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-zinc-50 transition-all duration-200"
           >
-            Books
+            Search
           </Link>
         </div>
       )}
