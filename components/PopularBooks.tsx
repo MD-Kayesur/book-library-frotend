@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Marquee from "react-fast-marquee";
 
 interface Book {
   id: number;
@@ -93,13 +94,12 @@ const POPULAR_BOOKS: Book[] = [
 ];
 
 export function PopularBooks() {
-  // Duplicate the array to ensure seamless infinite looping
-  const marqueeItems = [...POPULAR_BOOKS, ...POPULAR_BOOKS];
+  const marqueeItems = [...POPULAR_BOOKS, ...POPULAR_BOOKS, ...POPULAR_BOOKS];
 
   return (
     <section className="w-full py-16 bg-zinc-950 overflow-hidden relative border-b border-zinc-900">
       {/* Section Header */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-10">
+      <div className=" mx-auto px-6 md:px-12 mb-10">
         <h2 className="text-3xl font-bold tracking-tight text-white">
           Popular Books
         </h2>
@@ -111,10 +111,15 @@ export function PopularBooks() {
         <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-zinc-950 to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-zinc-950 to-transparent z-10 pointer-events-none" />
 
-        {/* Scrolling Inner Track */}
-        <div className="flex gap-8 animate-marquee-scroll hover:pause-marquee-scroll w-max py-4">
+        {/* Scrolling Inner Track using react-fast-marquee */}
+        <Marquee
+          pauseOnHover={true}
+          speed={55}
+          gradient={false}
+          className="py-4"
+        >
           {marqueeItems.map((book, index) => (
-            <div key={`${book.id}-${index}`} className="flex flex-col items-start w-[180px] flex-shrink-0 group">
+            <div key={`${book.id}-${index}`} className="flex flex-col items-start w-[180px] flex-shrink-0 group mx-4">
               {/* Book Cover Artwork Container */}
               <div className={`relative w-[180px] h-[260px] rounded-t-lg rounded-br-lg ${book.coverClass} border shadow-lg overflow-hidden flex flex-col justify-between p-4 transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl group-hover:border-white/30`}>
                 {/* Book Spine Line */}
@@ -156,26 +161,8 @@ export function PopularBooks() {
               </div>
             </div>
           ))}
-        </div>
+        </Marquee>
       </div>
-
-      {/* Inline styles for clean, high-performance GPU-accelerated scrolling and pause-on-hover */}
-      <style>{`
-        @keyframes marqueeScroll {
-          0% {
-            transform: translate3d(0, 0, 0);
-          }
-          100% {
-            transform: translate3d(-50%, 0, 0);
-          }
-        }
-        .animate-marquee-scroll {
-          animation: marqueeScroll 25s linear infinite;
-        }
-        .hover\\:pause-marquee-scroll:hover {
-          animation-play-state: paused;
-        }
-      `}</style>
     </section>
   );
 }
