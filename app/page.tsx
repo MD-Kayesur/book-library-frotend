@@ -3,6 +3,7 @@ import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Hero } from "@/components/Hero";
+import { PopularBooks } from "@/components/PopularBooks";
 import { motion } from "framer-motion";
 
 export default function Home() {
@@ -11,8 +12,11 @@ export default function Home() {
       {/* Hero Slider Section */}
       <Hero />
       
+      {/* Popular Books Section */}
+      <PopularBooks />
+      
       {/* Search Bar Section */}
-      <section className="w-full py-12 px-6 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800">
+      {/* <section className="w-full py-12 px-6 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -26,7 +30,7 @@ export default function Home() {
             <Button type="submit" size="lg" className="h-12 px-8">Search</Button>
           </div>
         </motion.div>
-      </section>
+      </section> */}
     </div>
   );
 }

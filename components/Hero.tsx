@@ -129,7 +129,7 @@ export function Hero() {
         </div>
 
         {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 pointer-events-none">
+        {/* <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 pointer-events-none">
           <span className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
             Scroll to scrub video & explore
           </span>
@@ -146,7 +146,7 @@ export function Hero() {
               className="w-1.5 h-1.5 rounded-full bg-indigo-400"
             />
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
