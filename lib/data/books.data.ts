@@ -17,6 +17,7 @@ export const DUMMY_BOOKS: Book[] = [
     summary:
       "The Great Gatsby is a 1925 novel by American writer F. Scott Fitzgerald. Set in the Jazz Age on Long Island, near New York City, the novel depicts first-person narrator Nick Carraway's interactions with mysterious millionaire Jay Gatsby and Gatsby's obsession to reunite with his former love, Daisy Buchanan.",
     isLoanedBook: false,
+    pdfUrl: "/sample.pdf",
   },
   {
     id: 2,
@@ -34,6 +35,7 @@ export const DUMMY_BOOKS: Book[] = [
     summary:
       "To Kill a Mockingbird is a novel by Harper Lee published in 1960. Instantly successful, it won the Pulitzer Prize and has become a classic of modern American literature. The plot and characters are loosely based on Lee's observations of her family, her neighbors and an event that occurred near her hometown of Monroeville, Alabama, in 1936, when she was 10.",
     isLoanedBook: true,
+    pdfUrl: "/sample.pdf",
   },
   {
     id: 3,
@@ -51,6 +53,7 @@ export const DUMMY_BOOKS: Book[] = [
     summary:
       "Nineteen Eighty-Four is a dystopian social science fiction novel and cautionary tale written by the English writer George Orwell. It was published in 1949 as Orwell's ninth and final book completed in his lifetime. Thematically, it centres on the consequences of totalitarianism, mass surveillance, and repressive regimentation of persons and behaviours within society.",
     isLoanedBook: false,
+    pdfUrl: "/sample.pdf",
   },
   {
     id: 4,
@@ -68,6 +71,7 @@ export const DUMMY_BOOKS: Book[] = [
     summary:
       "Pride and Prejudice is an 1813 romantic novel of manners written by Jane Austen. The novel follows the character development of Elizabeth Bennet, the dynamic protagonist of the book who learns about the repercussions of hasty judgments and comes to appreciate the difference between superficial goodness and actual goodness.",
     isLoanedBook: false,
+    pdfUrl: "/sample.pdf",
   },
   {
     id: 5,
@@ -84,6 +88,7 @@ export const DUMMY_BOOKS: Book[] = [
     summary:
       "The Catcher in the Rye is a novel by J. D. Salinger, partially published in serial form in 1945–1946 and as a novel in 1951. It was originally intended for adults but is often read by adolescents for its themes of angst, alienation, and as a critique on superficiality in society.",
     isLoanedBook: false,
+    pdfUrl: "/sample.pdf",
   },
   {
     id: 6,
@@ -101,6 +106,7 @@ export const DUMMY_BOOKS: Book[] = [
     summary:
       "The Hobbit, or There and Back Again is a children's fantasy novel by English author J. R. R. Tolkien. It was published in 1937 to wide critical acclaim, being nominated for the Carnegie Medal and awarded a prize from the New York Herald Tribune for best juvenile fiction. The novel remains a classic in children's literature.",
     isLoanedBook: false,
+    pdfUrl: "/sample.pdf",
   },
   {
     id: 7,
@@ -118,6 +124,7 @@ export const DUMMY_BOOKS: Book[] = [
     summary:
       "Fahrenheit 451 is a dystopian novel by American writer Ray Bradbury, first published in 1953. Often regarded as one of his best works, the novel presents a future American society where books are outlawed and firemen burn any that are found.",
     isLoanedBook: false,
+    pdfUrl: "/sample.pdf",
   },
   {
     id: 8,
@@ -135,5 +142,6 @@ export const DUMMY_BOOKS: Book[] = [
     summary:
       "Moby-Dick; or, The Whale is an 1851 novel by American writer Herman Melville. The book is the sailor Ishmael's narrative of the obsessive quest of Ahab, captain of the whaling ship Pequod, for revenge against Moby Dick, the giant white sperm whale that on the ship's previous voyage bit off Ahab's leg at the knee.",
     isLoanedBook: false,
+    pdfUrl: "/sample.pdf",
   },
 ];

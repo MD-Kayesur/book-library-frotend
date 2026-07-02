@@ -295,7 +295,22 @@ export default function BooksPage() {
                     >
                       Close Window
                     </Button>
+                    <Button 
+                      className="flex-1 text-white hover:opacity-90 rounded-xl font-semibold flex items-center justify-center gap-2 shadow-sm transition-opacity"
+                      style={{ backgroundColor: selectedBookForSummary.color }}
+                      onClick={() => {
+                        if (selectedBookForSummary.pdfUrl) {
+                          window.open(selectedBookForSummary.pdfUrl, "_blank");
+                        }
+                      }}
+                    >
+                      <BookIcon className="h-4 w-4" />
+                      Read
+                    </Button>
                   </div>
+
+
+                  
                 </div>
 
                 {/* Desktop Close Button */}

@@ -16,4 +16,5 @@ export interface Book {
   video: string;
   summary: string;
   isLoanedBook?: boolean;
+  pdfUrl?: string;
 }
