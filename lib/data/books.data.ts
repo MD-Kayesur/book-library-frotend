@@ -30,12 +30,12 @@ export const DUMMY_BOOKS: Book[] = [
     description:
       "Your journey to software mastery. Cuts through the complexities of modern development.",
     color: "#0f172a",
-    cover: "/images/covers/pragmatic-programmer.svg",
+    cover: "/images/covers/pragmatic-programmer.png",
     video: "/Create_a_highly_realistic_cine (1).mp4",
     summary:
       "The Pragmatic Programmer is one of the most highly acclaimed programming books ever written. It offers timeless advice on career development, design principles, testing, debugging, automation, and team dynamics, helping programmers produce reliable, maintainable, and user-centric software.",
     isLoanedBook: true,
-    pdfUrl: "/sample.pdf",
+    pdfUrl: "/pdf/pragmatic-programmer.pdf",
   },
   {
     id: 3,
