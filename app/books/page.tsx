@@ -15,11 +15,13 @@ import {
 } from "@/components/ui/card";
 import { Search, Book as BookIcon, User, Star } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/navigation";
+import { slugify } from "@/lib/utils";
 
 
 export default function BooksPage() {
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = React.useState("");
-  const [selectedBookForSummary, setSelectedBookForSummary] = React.useState<Book | null>(null);
 
   const filteredBooks = DUMMY_BOOKS.filter(
     (book) =>
@@ -186,7 +188,7 @@ export default function BooksPage() {
                       <Button
                         variant="outline"
                         className="flex-1 border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-900 rounded-xl py-5 font-semibold text-sm"
-                        onClick={() => setSelectedBookForSummary(book)}
+                        onClick={() => router.push(`/books/${slugify(book.title)}`)}
                       >
                         Summary
                       </Button>
@@ -220,110 +222,7 @@ export default function BooksPage() {
           </motion.div>
         )}
 
-        {/* Book Summary Modal */}
-        <AnimatePresence>
-          {selectedBookForSummary && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
-              onClick={() => setSelectedBookForSummary(null)}
-            >
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                transition={{ type: "spring", duration: 0.5 }}
-                className="relative w-full max-w-2xl bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden shadow-2xl border border-zinc-200 dark:border-zinc-800 flex flex-col md:flex-row"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {/* Book Cover in Modal */}
-                <div className="w-full md:w-2/5 aspect-[4/3] md:aspect-auto md:h-auto bg-zinc-100 dark:bg-zinc-950 relative">
-                  <img
-                    src={selectedBookForSummary.cover}
-                    alt={selectedBookForSummary.title}
-                    className="w-full h-full object-cover object-center"
-                  />
-                  <div 
-                    className="absolute top-4 left-4 text-white text-xs font-semibold px-2.5 py-1 rounded-full shadow-md z-10"
-                    style={{ backgroundColor: selectedBookForSummary.color }}
-                  >
-                    {selectedBookForSummary.genre}
-                  </div>
-                </div>
-
-                {/* Content in Modal */}
-                <div className="w-full md:w-3/5 p-6 md:p-8 flex flex-col justify-between space-y-6">
-                  <div className="space-y-4">
-                    <div className="space-y-1">
-                      <div className="flex items-center justify-between">
-                        <span className="text-amber-500 text-sm font-bold flex items-center gap-1">
-                          <Star className="h-4 w-4 fill-amber-500 stroke-amber-500" />
-                          <span>{selectedBookForSummary.rating.toFixed(1)} / 5.0</span>
-                        </span>
-                        <button 
-                          onClick={() => setSelectedBookForSummary(null)}
-                          className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 transition-colors rounded-full p-1 hover:bg-zinc-100 dark:hover:bg-zinc-800 md:hidden"
-                        >
-                          ✕
-                        </button>
-                      </div>
-                      <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50 leading-tight">
-                        {selectedBookForSummary.title}
-                      </h2>
-                      <p className="text-zinc-500 dark:text-zinc-400 font-medium text-sm flex items-center gap-1.5">
-                        <User className="h-4 w-4" />
-                        <span>{selectedBookForSummary.author}</span>
-                      </p>
-                    </div>
-
-                    <div className="space-y-2">
-                      <h3 className="text-sm font-semibold uppercase tracking-wider text-zinc-400">
-                        Summary
-                      </h3>
-                      <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed max-h-[180px] overflow-y-auto pr-2">
-                        {selectedBookForSummary.summary}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex gap-3 pt-4 border-t border-zinc-100 dark:border-zinc-800">
-                    <Button 
-                      className="flex-1 bg-zinc-900 dark:bg-zinc-50 text-white dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-zinc-200 rounded-xl"
-                      onClick={() => setSelectedBookForSummary(null)}
-                    >
-                      Close Window
-                    </Button>
-                    <Button 
-                      className="flex-1 text-white hover:opacity-90 rounded-xl font-semibold flex items-center justify-center gap-2 shadow-sm transition-opacity"
-                      style={{ backgroundColor: selectedBookForSummary.color }}
-                      onClick={() => {
-                        if (selectedBookForSummary.pdfUrl) {
-                          window.open(selectedBookForSummary.pdfUrl, "_blank");
-                        }
-                      }}
-                    >
-                      <BookIcon className="h-4 w-4" />
-                      Read
-                    </Button>
-                  </div>
-
-
-                  
-                </div>
-
-                {/* Desktop Close Button */}
-                <button 
-                  onClick={() => setSelectedBookForSummary(null)}
-                  className="absolute top-4 right-4 hidden md:flex text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 transition-colors rounded-full p-1.5 hover:bg-zinc-100 dark:hover:bg-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800 shadow-sm"
-                >
-                  ✕
-                </button>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* Book Summary Modal removed in favor of details page */}
       </div>
     </div>
   );
