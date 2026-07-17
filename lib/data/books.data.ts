@@ -13,7 +13,7 @@ export const DUMMY_BOOKS: Book[] = [
       "A handbook of agile software craftsmanship. Learn to write clean, maintainable, and elegant code.",
     color: "#0d3b66",
     cover: "/images/covers/clean-code.png",
-    video: "/Create_a_highly_realistic_cine (1).mp4",
+    video: "/Create_a_–_second_ultra_re.mp4",
     summary:
       "Clean Code: A Handbook of Agile Software Craftsmanship is a classic guide by Robert C. Martin ('Uncle Bob') that presents principles, patterns, and practices for writing clean, efficient, and maintainable software. It focuses on naming conventions, functions, comments, formatting, and unit testing to elevate software quality.",
     isLoanedBook: false,

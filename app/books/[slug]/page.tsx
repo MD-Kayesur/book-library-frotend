@@ -5,6 +5,7 @@ import { Star, User, Book as BookIcon, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import * as React from "react";
+import { BookHero } from "@/components/BookHero";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -19,8 +20,11 @@ export default async function BookDetailsPage({ params }: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 px-4 sm:px-6 lg:px-8 py-12 transition-colors duration-300 flex justify-center items-center">
-      <div className="w-full max-w-5xl space-y-8">
+    <div className="flex flex-col min-h-screen w-full bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300">
+      <BookHero book={book} />
+      
+      <div className="px-4 sm:px-6 lg:px-8 py-16 flex justify-center items-center w-full relative z-30">
+        <div className="w-full max-w-5xl space-y-8">
         
         <Link href="/books" className="inline-flex items-center gap-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors font-medium">
           <ArrowLeft className="h-4 w-4" />
@@ -95,7 +99,7 @@ export default async function BookDetailsPage({ params }: Props) {
                   {book.summary}
                 </p>
                 <p className="text-base text-zinc-500 dark:text-zinc-400 leading-relaxed italic border-l-2 border-zinc-200 dark:border-zinc-800 pl-4 mt-6">
-                  "{book.description}"
+                  &quot;{book.description}&quot;
                 </p>
               </div>
             </div>
@@ -130,6 +134,7 @@ export default async function BookDetailsPage({ params }: Props) {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }
