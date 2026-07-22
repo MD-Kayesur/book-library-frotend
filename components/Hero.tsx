@@ -19,12 +19,11 @@ export function Hero({ children }: { children?: React.ReactNode }) {
     let animationFrameId: number;
 
     const handleScroll = () => {
-      const rect = container.getBoundingClientRect();
-      const scrollHeight = rect.height - window.innerHeight;
-      if (scrollHeight <= 0) return;
+      // Calculate scroll progress (0 to 1) based on the entire document height
+      const maxScrollY = document.documentElement.scrollHeight - window.innerHeight;
+      if (maxScrollY <= 0) return;
 
-      // Calculate scroll progress (0 to 1) inside container
-      const progress = Math.max(0, Math.min(1, -rect.top / scrollHeight));
+      const progress = Math.max(0, Math.min(1, window.scrollY / maxScrollY));
 
       // Calculate active book index based on progress
       const totalBooks = DUMMY_BOOKS.length;
