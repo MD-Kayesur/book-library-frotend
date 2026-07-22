@@ -9,7 +9,7 @@ import { FAQ } from "@/components/FAQ";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-transparent font-sans">
+    <div className="min-h-screen  font-sans">
       {/* The Hero component now acts as the global scroll container for the video */}
       <Hero>
 
@@ -23,7 +23,7 @@ export default function Home() {
         <FAQ />
 
         {/* Search Bar / CTA Section */}
-        <section className="w-full py-32 px-6 bg-transparent border-t border-white/10">
+        <section className="w-full py-32 px-6  border-t border-white/10">
           <div className="max-w-3xl mx-auto flex flex-col items-center text-center space-y-8">
             <h2 className="text-4xl font-bold text-white drop-shadow-md">Ready to start your next adventure?</h2>
             <p className="text-xl text-zinc-300">Join thousands of readers and discover your next favorite book today.</p>

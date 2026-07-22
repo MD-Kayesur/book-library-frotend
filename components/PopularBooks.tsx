@@ -97,7 +97,7 @@ export function PopularBooks() {
   const marqueeItems = [...POPULAR_BOOKS, ...POPULAR_BOOKS, ...POPULAR_BOOKS];
 
   return (
-    <section className="w-full py-16 bg-transparent overflow-hidden relative border-b border-zinc-200 dark:border-white/10">
+    <section className="w-full py-16  overflow-hidden relative border-b border-zinc-200 dark:border-white/10">
       {/* Section Header */}
       <div className=" mx-auto px-6 md:px-12 mb-10">
         <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white drop-shadow-md">
@@ -126,7 +126,7 @@ export function PopularBooks() {
                 <div className="absolute left-1.5 top-0 bottom-0 w-[1px] bg-white/10 dark:bg-black/20 z-20" />
                 {/* Book Spine Shadow Overlay */}
                 <div className="absolute left-0 top-0 bottom-0 w-[8px] bg-gradient-to-r from-black/35 to-transparent z-20" />
-                
+
                 {/* Design Content on Cover */}
                 <div className="flex flex-col items-center justify-between h-full text-center py-2 relative z-10">
                   <span className="text-[10px] uppercase tracking-widest font-semibold opacity-70">
@@ -142,7 +142,7 @@ export function PopularBooks() {
 
                 {/* Cover Decoration Shape */}
                 {book.decoration}
-                
+
                 {/* Bottom Pages Line Simulation */}
                 <div className="absolute bottom-0 left-0 right-0 h-3 bg-stone-200 border-t border-zinc-400/50 flex flex-col justify-center px-1 z-20">
                   <div className="w-full h-[1px] bg-stone-300" />

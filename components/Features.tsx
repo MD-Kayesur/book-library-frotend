@@ -29,9 +29,9 @@ const features = [
 
 export function Features() {
   return (
-    <section className="w-full py-32 px-6 bg-transparent">
+    <section className="w-full py-32 px-6 ">
       <div className="max-w-6xl mx-auto flex flex-col items-center">
-        <motion.h2 
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -40,7 +40,7 @@ export function Features() {
         >
           Why Choose Our Library?
         </motion.h2>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full">
           {features.map((feature, index) => (
             <motion.div

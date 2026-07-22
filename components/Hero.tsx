@@ -59,13 +59,13 @@ export function Hero({ children }: { children?: React.ReactNode }) {
   const book = DUMMY_BOOKS[0];
 
   return (
-    <div ref={containerRef} className="relative w-full min-h-[300vh] bg-transparent">
+    <div ref={containerRef} className="relative w-full min-h-[300vh] ">
       {/* Fixed Background Video spanning the entire page */}
       <div className="fixed inset-0 w-full h-screen overflow-hidden z-0 pointer-events-none">
         {/* Background Video */}
         <video
           ref={videoRef}
-          src="/video_2026-07-21_17-48-55.mp4"
+          src="/Create_a_highly_realistic_cine%20(1).mp4"
           muted
           playsInline
           preload="auto"
@@ -90,31 +90,31 @@ export function Hero({ children }: { children?: React.ReactNode }) {
             <span className="px-4 py-1.5 rounded-full bg-indigo-500/20 text-indigo-300 text-sm font-semibold border border-indigo-500/30 backdrop-blur-md">
               Featured Interactive Experience
             </span>
-              <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-white drop-shadow-md">
-                {book.title}
-              </h1>
-              <p className="text-xl md:text-3xl font-light text-zinc-300">
-                by {book.author}
-              </p>
-              <p className="text-lg md:text-xl text-zinc-200 max-w-3xl line-clamp-3 mt-4 leading-relaxed drop-shadow-sm">
-                {book.description}
-              </p>
-              <div className="flex gap-4 pt-8">
-                <Button
-                  size="lg"
-                  className="bg-indigo-600 text-white hover:bg-indigo-700 h-12 px-8 text-base shadow-lg shadow-indigo-600/25"
-                >
-                  Borrow Now
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="text-white border-white/20 hover:bg-white/10 h-12 px-8 text-base backdrop-blur-sm"
-                >
-                  Read Summary
-                </Button>
-              </div>
-            </motion.div>
+            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-white drop-shadow-md">
+              {book.title}
+            </h1>
+            <p className="text-xl md:text-3xl font-light text-zinc-300">
+              by {book.author}
+            </p>
+            <p className="text-lg md:text-xl text-zinc-200 max-w-3xl line-clamp-3 mt-4 leading-relaxed drop-shadow-sm">
+              {book.description}
+            </p>
+            <div className="flex gap-4 pt-8">
+              <Button
+                size="lg"
+                className="bg-indigo-600 text-white hover:bg-indigo-700 h-12 px-8 text-base shadow-lg shadow-indigo-600/25"
+              >
+                Borrow Now
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="text-white border-white/20 hover:bg-white/10 h-12 px-8 text-base backdrop-blur-sm"
+              >
+                Read Summary
+              </Button>
+            </div>
+          </motion.div>
         </div>
 
         {/* Dynamic Children Sections (Popular Books, Search, etc.) */}

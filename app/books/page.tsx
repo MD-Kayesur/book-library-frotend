@@ -35,25 +35,36 @@ export default function BooksPage() {
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 px-4 sm:px-6 lg:px-8 py-12 transition-colors duration-300">
       <div className="max-w-6xl mx-auto space-y-12">
-        {/* Header */}
-        <div className="text-center space-y-4">
-          <motion.h1
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl"
-          >
-            Explore Library Catalog
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto"
-          >
-            Search and discover your next favorite book from our curated
-            collection.
-          </motion.p>
+        {/* Video Hero Header */}
+        <div className="relative w-full min-h-[calc(100vh-100px)] flex items-center justify-center rounded-3xl overflow-hidden shadow-2xl border border-zinc-200/50 dark:border-white/10">
+          <video 
+            src="/Create_a_highly_realistic_cine%20(1).mp4" 
+            autoPlay 
+            loop 
+            muted 
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover z-0"
+          />
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px] z-10" />
+          
+          <div className="relative z-20 text-center space-y-4 px-4">
+            <motion.h1
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white drop-shadow-lg"
+            >
+              Explore Library Catalog
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+              className="text-lg md:text-xl text-zinc-200 max-w-2xl mx-auto drop-shadow-md font-medium"
+            >
+              Search and discover your next favorite book from our curated collection.
+            </motion.p>
+          </div>
         </div>
 
         {/* Popular Books Marquee */}

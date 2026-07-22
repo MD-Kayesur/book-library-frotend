@@ -31,9 +31,9 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = React.useState<number | null>(null);
 
   return (
-    <section className="w-full py-32 px-6 bg-transparent">
+    <section className="w-full py-32 px-6 ">
       <div className="max-w-3xl mx-auto flex flex-col items-center">
-        <motion.h2 
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -42,7 +42,7 @@ export function FAQ() {
         >
           Frequently Asked Questions
         </motion.h2>
-        
+
         <div className="w-full space-y-4">
           {faqs.map((faq, index) => (
             <motion.div
@@ -65,7 +65,7 @@ export function FAQ() {
                   <ChevronDown className="w-5 h-5 text-zinc-400" />
                 </motion.div>
               </button>
-              
+
               <AnimatePresence>
                 {openIndex === index && (
                   <motion.div

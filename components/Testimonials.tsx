@@ -27,9 +27,9 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section className="w-full py-32 px-6 bg-transparent">
+    <section className="w-full py-32 px-6 ">
       <div className="max-w-7xl mx-auto flex flex-col items-center">
-        <motion.h2 
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -38,7 +38,7 @@ export function Testimonials() {
         >
           Loved by Readers
         </motion.h2>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
           {testimonials.map((testimonial, index) => (
             <motion.div
@@ -54,9 +54,9 @@ export function Testimonials() {
               </div>
               <div className="flex space-x-1 mb-6 relative z-10">
                 {[...Array(5)].map((_, i) => (
-                  <Star 
-                    key={i} 
-                    className={`w-5 h-5 ${i < testimonial.rating ? "fill-indigo-500 text-indigo-500" : "text-zinc-600"}`} 
+                  <Star
+                    key={i}
+                    className={`w-5 h-5 ${i < testimonial.rating ? "fill-indigo-500 text-indigo-500" : "text-zinc-600"}`}
                   />
                 ))}
               </div>
