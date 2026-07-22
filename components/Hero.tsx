@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { DUMMY_BOOKS } from "@/lib/dummy-data";
 import { motion, AnimatePresence } from "framer-motion";
 
-export function Hero() {
+export function Hero({ children }: { children?: React.ReactNode }) {
   const videoRef = React.useRef<HTMLVideoElement>(null);
   const containerRef = React.useRef<HTMLDivElement>(null);
   const [activeBookIndex, setActiveBookIndex] = React.useState(0);
@@ -69,25 +69,28 @@ export function Hero() {
   const book = DUMMY_BOOKS[activeBookIndex];
 
   return (
-    <div ref={containerRef} className="relative w-full h-[400vh] bg-zinc-950">
-      {/* Sticky Frame */}
-      <div className="sticky top-0 w-full h-screen flex items-center justify-center overflow-hidden">
+    <div ref={containerRef} className="relative w-full min-h-[300vh] bg-transparent">
+      {/* Fixed Background Video spanning the entire page */}
+      <div className="fixed inset-0 w-full h-screen overflow-hidden z-0 pointer-events-none">
         {/* Background Video */}
         <video
           ref={videoRef}
-          src="/Create_a_highly_realistic_cine (1).mp4"
+          src="/video_2026-07-21_17-48-55.mp4"
           muted
           playsInline
           preload="auto"
-          className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
+          className="absolute inset-0 w-full h-full object-cover"
         />
 
-        {/* Ambient Overlays */}
-        <div className="absolute inset-0 bg-zinc-950/65 z-10 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-zinc-950/40 z-10 pointer-events-none" />
+        {/* Ambient Overlays for readability of sections above */}
+        <div className="absolute inset-0 bg-black/40 z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/80 z-10 pointer-events-none" />
+      </div>
 
-        {/* Content Wrapper */}
-        <div className="relative z-20 w-full max-w-5xl mx-auto px-6 md:px-12 text-center h-[70vh] flex items-center justify-center">
+      {/* Content Wrapper */}
+      <div className="relative z-20 w-full flex flex-col">
+        {/* Hero Top Section (First Viewport) */}
+        <div className="w-full max-w-5xl mx-auto px-6 md:px-12 text-center h-screen flex flex-col items-center justify-center">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeBookIndex}
@@ -106,7 +109,7 @@ export function Hero() {
               <p className="text-xl md:text-3xl font-light text-zinc-300">
                 by {book.author}
               </p>
-              <p className="text-lg md:text-xl text-zinc-200 max-w-3xl line-clamp-3 mt-4 leading-relaxed">
+              <p className="text-lg md:text-xl text-zinc-200 max-w-3xl line-clamp-3 mt-4 leading-relaxed drop-shadow-sm">
                 {book.description}
               </p>
               <div className="flex gap-4 pt-8">
@@ -128,25 +131,10 @@ export function Hero() {
           </AnimatePresence>
         </div>
 
-        {/* Scroll Indicator */}
-        {/* <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 pointer-events-none">
-          <span className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
-            Scroll to scrub video & explore
-          </span>
-          <div className="w-[24px] h-[40px] rounded-full border-2 border-zinc-500 flex justify-center p-1.5">
-            <motion.div
-              animate={{
-                y: [0, 12, 0],
-              }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="w-1.5 h-1.5 rounded-full bg-indigo-400"
-            />
-          </div>
-        </div> */}
+        {/* Dynamic Children Sections (Popular Books, Search, etc.) */}
+        <div className="w-full relative z-30">
+          {children}
+        </div>
       </div>
     </div>
   );

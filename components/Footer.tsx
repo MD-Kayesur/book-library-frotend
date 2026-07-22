@@ -7,7 +7,7 @@ import { Mail, MapPin, Phone } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="w-full bg-zinc-950 text-zinc-400 border-t border-zinc-900">
+    <footer className="w-full bg-black/40 backdrop-blur-lg text-zinc-400 border-t border-white/10 relative z-20">
       <div className="max-w-7xl mx-auto px-6 py-12 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8">
           {/* Column 1: Logo & About */}
@@ -18,10 +18,10 @@ export function Footer() {
                 alt="BookLibrary Logo"
                 width={180}
                 height={50}
-                className="object-contain brightness-95 hover:brightness-100 transition-all duration-200"
+                className="object-contain brightness-95 hover:brightness-100 transition-all duration-200 drop-shadow-md"
               />
             </Link>
-            <p className="text-sm text-zinc-400 leading-relaxed max-w-sm">
+            <p className="text-sm text-zinc-300 leading-relaxed max-w-sm drop-shadow-sm">
               Discover and catalog your next literary adventures. BookLibrary offers a premium digital shelf experience for bibliophiles, featuring live searching, interactive video highlights, and catalog curated lists.
             </p>
             {/* Social Icons */}
@@ -30,7 +30,7 @@ export function Footer() {
                 href="https://github.com"
                 target="_blank"
                 rel="noreferrer"
-                className="p-2 rounded-full border border-zinc-800 text-zinc-400 hover:border-indigo-500 hover:text-indigo-400 hover:bg-zinc-900 transition-all duration-200"
+                className="p-2 rounded-full border border-white/20 text-zinc-300 hover:border-indigo-400 hover:text-indigo-300 hover:bg-white/10 transition-all duration-200 backdrop-blur-sm"
                 aria-label="GitHub"
               >
                 <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
@@ -41,7 +41,7 @@ export function Footer() {
                 href="https://twitter.com"
                 target="_blank"
                 rel="noreferrer"
-                className="p-2 rounded-full border border-zinc-800 text-zinc-400 hover:border-indigo-500 hover:text-indigo-400 hover:bg-zinc-900 transition-all duration-200"
+                className="p-2 rounded-full border border-white/20 text-zinc-300 hover:border-indigo-400 hover:text-indigo-300 hover:bg-white/10 transition-all duration-200 backdrop-blur-sm"
                 aria-label="Twitter"
               >
                 <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
@@ -52,7 +52,7 @@ export function Footer() {
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noreferrer"
-                className="p-2 rounded-full border border-zinc-800 text-zinc-400 hover:border-indigo-500 hover:text-indigo-400 hover:bg-zinc-900 transition-all duration-200"
+                className="p-2 rounded-full border border-white/20 text-zinc-300 hover:border-indigo-400 hover:text-indigo-300 hover:bg-white/10 transition-all duration-200 backdrop-blur-sm"
                 aria-label="LinkedIn"
               >
                 <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
@@ -64,7 +64,7 @@ export function Footer() {
 
           {/* Column 2: Quick Links */}
           <div className="space-y-4">
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-zinc-200">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-zinc-100 drop-shadow-sm">
               Quick Links
             </h4>
             <ul className="space-y-2.5 text-sm">
@@ -97,7 +97,7 @@ export function Footer() {
 
           {/* Column 3: Contact & Info */}
           <div className="space-y-4">
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-zinc-200">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-zinc-100 drop-shadow-sm">
               Contact Us
             </h4>
             <ul className="space-y-3 text-sm">
@@ -120,15 +120,15 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-zinc-900 flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
-          <p className="text-zinc-500">
+        <div className="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
+          <p className="text-zinc-400">
             &copy; {new Date().getFullYear()} BookLibrary. All rights reserved.
           </p>
-          <div className="flex gap-6 text-zinc-500">
-            <Link href="/" className="hover:text-zinc-400 hover:underline">
+          <div className="flex gap-6 text-zinc-400">
+            <Link href="/" className="hover:text-zinc-300 hover:underline">
               Privacy Policy
             </Link>
-            <Link href="/" className="hover:text-zinc-400 hover:underline">
+            <Link href="/" className="hover:text-zinc-300 hover:underline">
               Terms of Service
             </Link>
           </div>

@@ -8,29 +8,23 @@ import { motion } from "framer-motion";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 font-sans">
-      {/* Hero Slider Section */}
-      <Hero />
-      
-      {/* Popular Books Section */}
-      <PopularBooks />
-      
-      {/* Search Bar Section */}
-      {/* <section className="w-full py-12 px-6 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          viewport={{ once: true }}
-          className="max-w-2xl mx-auto flex flex-col items-center text-center space-y-4"
-        >
-          <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">Find your next adventure</h2>
-          <div className="flex w-full items-center space-x-2">
-            <Input type="text" placeholder="Search by title, author, or genre..." className="h-12 text-lg bg-zinc-50 dark:bg-zinc-950" />
-            <Button type="submit" size="lg" className="h-12 px-8">Search</Button>
+    <div className="min-h-screen bg-transparent font-sans">
+      {/* The Hero component now acts as the global scroll container for the video */}
+      <Hero>
+        {/* Popular Books Section */}
+        <PopularBooks />
+        
+        {/* Search Bar Section */}
+        <section className="w-full py-24 px-6 bg-transparent border-t border-white/10">
+          <div className="max-w-2xl mx-auto flex flex-col items-center text-center space-y-6">
+            <h2 className="text-3xl font-semibold text-white drop-shadow-md">Find your next adventure</h2>
+            <div className="flex w-full items-center space-x-2">
+              <Input type="text" placeholder="Search by title, author, or genre..." className="h-14 text-lg bg-black/40 border-white/20 text-white backdrop-blur-md" />
+              <Button type="submit" size="lg" className="h-14 px-8 bg-indigo-600 hover:bg-indigo-700 text-white">Search</Button>
+            </div>
           </div>
-        </motion.div>
-      </section> */}
+        </section>
+      </Hero>
     </div>
   );
 }

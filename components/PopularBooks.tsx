@@ -97,19 +97,19 @@ export function PopularBooks() {
   const marqueeItems = [...POPULAR_BOOKS, ...POPULAR_BOOKS, ...POPULAR_BOOKS];
 
   return (
-    <section className="w-full py-16 bg-zinc-950 overflow-hidden relative border-b border-zinc-900">
+    <section className="w-full py-16 bg-transparent overflow-hidden relative border-b border-white/10">
       {/* Section Header */}
       <div className=" mx-auto px-6 md:px-12 mb-10">
-        <h2 className="text-3xl font-bold tracking-tight text-white">
+        <h2 className="text-3xl font-bold tracking-tight text-white drop-shadow-md">
           Popular Books
         </h2>
       </div>
 
       {/* Marquee Wrapper */}
       <div className="relative w-full flex items-center overflow-hidden">
-        {/* Ambient fade overlays on the sides */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-zinc-950 to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-zinc-950 to-transparent z-10 pointer-events-none" />
+        {/* Ambient fade overlays on the sides, adapted for transparent bg */}
+        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-black/60 to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-black/60 to-transparent z-10 pointer-events-none" />
 
         {/* Scrolling Inner Track using react-fast-marquee */}
         <Marquee
