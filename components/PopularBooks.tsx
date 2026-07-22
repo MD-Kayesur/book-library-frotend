@@ -97,10 +97,10 @@ export function PopularBooks() {
   const marqueeItems = [...POPULAR_BOOKS, ...POPULAR_BOOKS, ...POPULAR_BOOKS];
 
   return (
-    <section className="w-full py-16 bg-transparent overflow-hidden relative border-b border-white/10">
+    <section className="w-full py-16 bg-transparent overflow-hidden relative border-b border-zinc-200 dark:border-white/10">
       {/* Section Header */}
       <div className=" mx-auto px-6 md:px-12 mb-10">
-        <h2 className="text-3xl font-bold tracking-tight text-white drop-shadow-md">
+        <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white drop-shadow-md">
           Popular Books
         </h2>
       </div>
@@ -108,8 +108,8 @@ export function PopularBooks() {
       {/* Marquee Wrapper */}
       <div className="relative w-full flex items-center overflow-hidden">
         {/* Ambient fade overlays on the sides, adapted for transparent bg */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-black/60 to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-black/60 to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-zinc-50 dark:from-black/60 to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-zinc-50 dark:from-black/60 to-transparent z-10 pointer-events-none" />
 
         {/* Scrolling Inner Track using react-fast-marquee */}
         <Marquee
@@ -152,10 +152,10 @@ export function PopularBooks() {
 
               {/* Book Info below cover */}
               <div className="mt-4 text-left w-full px-1">
-                <h3 className="font-semibold text-zinc-200 text-sm line-clamp-1 group-hover:text-white transition-colors duration-250">
+                <h3 className="font-semibold text-zinc-700 dark:text-zinc-200 text-sm line-clamp-1 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors duration-250">
                   {book.title} - By {book.author}
                 </h3>
-                <p className="text-xs text-zinc-400 italic mt-0.5">
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 italic mt-0.5">
                   {book.genre}
                 </p>
               </div>

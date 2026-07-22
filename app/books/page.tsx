@@ -17,6 +17,7 @@ import { Search, Book as BookIcon, User, Star } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { slugify } from "@/lib/utils";
+import { PopularBooks } from "@/components/PopularBooks";
 
 
 export default function BooksPage() {
@@ -53,6 +54,11 @@ export default function BooksPage() {
             Search and discover your next favorite book from our curated
             collection.
           </motion.p>
+        </div>
+
+        {/* Popular Books Marquee */}
+        <div className="w-full">
+          <PopularBooks />
         </div>
 
         {/* Search Filter Bar */}

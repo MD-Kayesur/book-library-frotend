@@ -3,7 +3,6 @@ import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Hero } from "@/components/Hero";
-import { PopularBooks } from "@/components/PopularBooks";
 import { Features } from "@/components/Features";
 import { Testimonials } from "@/components/Testimonials";
 import { FAQ } from "@/components/FAQ";
@@ -13,9 +12,7 @@ export default function Home() {
     <div className="min-h-screen bg-transparent font-sans">
       {/* The Hero component now acts as the global scroll container for the video */}
       <Hero>
-        {/* Popular Books Section */}
-        <PopularBooks />
-        
+
         {/* Features Section */}
         <Features />
 
