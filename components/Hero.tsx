@@ -8,7 +8,6 @@ import { motion, AnimatePresence } from "framer-motion";
 export function Hero({ children }: { children?: React.ReactNode }) {
   const videoRef = React.useRef<HTMLVideoElement>(null);
   const containerRef = React.useRef<HTMLDivElement>(null);
-  const [activeBookIndex, setActiveBookIndex] = React.useState(0);
 
   React.useEffect(() => {
     const video = videoRef.current;
@@ -24,14 +23,6 @@ export function Hero({ children }: { children?: React.ReactNode }) {
       if (maxScrollY <= 0) return;
 
       const progress = Math.max(0, Math.min(1, window.scrollY / maxScrollY));
-
-      // Calculate active book index based on progress
-      const totalBooks = DUMMY_BOOKS.length;
-      const index = Math.min(
-        totalBooks - 1,
-        Math.floor(progress * totalBooks),
-      );
-      setActiveBookIndex(index);
 
       if (video.duration) {
         targetTime = progress * video.duration;
@@ -65,7 +56,7 @@ export function Hero({ children }: { children?: React.ReactNode }) {
     };
   }, []);
 
-  const book = DUMMY_BOOKS[activeBookIndex];
+  const book = DUMMY_BOOKS[0];
 
   return (
     <div ref={containerRef} className="relative w-full min-h-[300vh] bg-transparent">
@@ -90,18 +81,15 @@ export function Hero({ children }: { children?: React.ReactNode }) {
       <div className="relative z-20 w-full flex flex-col">
         {/* Hero Top Section (First Viewport) */}
         <div className="w-full max-w-5xl mx-auto px-6 md:px-12 text-center h-screen flex flex-col items-center justify-center">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeBookIndex}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -30 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
-              className="flex flex-col items-center space-y-6"
-            >
-              <span className="px-4 py-1.5 rounded-full bg-indigo-500/20 text-indigo-300 text-sm font-semibold border border-indigo-500/30 backdrop-blur-md">
-                Featured Book {activeBookIndex + 1} of {DUMMY_BOOKS.length}
-              </span>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="flex flex-col items-center space-y-6"
+          >
+            <span className="px-4 py-1.5 rounded-full bg-indigo-500/20 text-indigo-300 text-sm font-semibold border border-indigo-500/30 backdrop-blur-md">
+              Featured Interactive Experience
+            </span>
               <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-white drop-shadow-md">
                 {book.title}
               </h1>
@@ -127,7 +115,6 @@ export function Hero({ children }: { children?: React.ReactNode }) {
                 </Button>
               </div>
             </motion.div>
-          </AnimatePresence>
         </div>
 
         {/* Dynamic Children Sections (Popular Books, Search, etc.) */}
