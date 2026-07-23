@@ -723,13 +723,13 @@ export function FluidCanvas() {
                 return newFBO;
             }
 
-            function resizeDoubleFBO(target, w, h, internalFormat, format, type, param) {
+            function resizeDoubleFBO(target:any, w:any, h:any, internalFormat:any, format:any, type:any, param:any) {
                 target.read = resizeFBO(target.read, w, h, internalFormat, format, type, param);
                 target.write = createFBO(w, h, internalFormat, format, type, param);
                 return target;
             }
 
-            function createNoiseTexture(size) {
+            function createNoiseTexture(size:any) {
                 const data = new Uint8Array(size * size * 3);
                 for (let i = 0; i < data.length; i++)
                     data[i] = Math.floor(Math.random() * 256);
@@ -744,7 +744,7 @@ export function FluidCanvas() {
                     texture,
                     width: size,
                     height: size,
-                    attach(id) {
+                    attach(id:any) {
                         gl.activeTexture(gl.TEXTURE0 + id);
                         gl.bindTexture(gl.TEXTURE_2D, texture);
                         return id;
@@ -801,7 +801,7 @@ export function FluidCanvas() {
                 }
             }
 
-            function step(dt) {
+            function step(dt:any) {
                 gl.disable(gl.BLEND);
                 gl.viewport(0, 0, simWidth, simHeight);
 
@@ -869,7 +869,7 @@ export function FluidCanvas() {
                 density.swap();
             }
 
-            function render(target) {
+            function render(target:any) {
                 if (config.BLOOM)
                     applyBloom(density.read, bloom);
 
@@ -924,7 +924,7 @@ export function FluidCanvas() {
                 blit(target);
             }
 
-            function applyBloom(source, destination) {
+            function applyBloom(source:any, destination:any) {
                 if (bloomFramebuffers.length < 2)
                     return;
 
@@ -973,7 +973,7 @@ export function FluidCanvas() {
                 blit(destination.fbo);
             }
 
-            function splat(x, y, dx, dy, color) {
+            function splat(x:any, y:any, dx:any, dy:any, color:any) {
                 gl.viewport(0, 0, simWidth, simHeight);
                 splatProgram.bind();
                 gl.uniform1i(splatProgram.uniforms.uTarget, velocity.read.attach(0));
@@ -991,7 +991,7 @@ export function FluidCanvas() {
                 density.swap();
             }
 
-            function multipleSplats(amount) {
+            function multipleSplats(amount:any) {
                 for (let i = 0; i < amount; i++) {
                     const color = generateColor();
                     color.r *= 10.0;
@@ -1013,18 +1013,18 @@ export function FluidCanvas() {
                 }
             }
 
-            function pointerPos(clientX, clientY) {
+            function pointerPos(clientX:any, clientY:any) {
                 const rect = canvas.getBoundingClientRect();
                 return { x: clientX - rect.left, y: clientY - rect.top };
             }
 
-            const teardown = [];
-            function on(target, type, handler, opts) {
+            const teardown:any = [];
+            function on(target:any, type:any, handler:any, opts:any) {
                 target.addEventListener(type, handler, opts);
                 teardown.push(() => target.removeEventListener(type, handler, opts));
             }
 
-            on(window, 'mousemove', e => {
+            on(window, 'mousemove', (e:any) => {
                 const { x, y } = pointerPos(e.clientX, e.clientY);
                 const p = pointers[0];
                 if (!p.everMoved) {
@@ -1043,7 +1043,7 @@ export function FluidCanvas() {
                 p.color = generateColor();
             });
 
-            on(window, 'touchmove', e => {
+            on(window, 'touchmove', (e:any) => {
                 const touches = e.targetTouches;
                 for (let i = 0; i < touches.length; i++) {
                     if (i >= pointers.length)
@@ -1060,7 +1060,7 @@ export function FluidCanvas() {
                 }
             }, { passive: true });
 
-            on(window, 'touchstart', e => {
+            on(window, 'touchstart', (e:any) => {
                 const touches = e.targetTouches;
                 for (let i = 0; i < touches.length; i++) {
                     if (i >= pointers.length)
@@ -1079,7 +1079,7 @@ export function FluidCanvas() {
                 pointers[0].down = false;
             });
 
-            on(window, 'touchend', e => {
+            on(window, 'touchend', (e:any) => {
                 const touches = e.changedTouches;
                 for (let i = 0; i < touches.length; i++)
                     for (let j = 0; j < pointers.length; j++)
@@ -1102,7 +1102,7 @@ export function FluidCanvas() {
                 return c;
             }
 
-            function HSVtoRGB(h, s, v) {
+            function HSVtoRGB(h:any, s:any, v:any) {
                 let r, g, b, i, f, p, q, t;
                 i = Math.floor(h * 6);
                 f = h * 6 - i;
@@ -1121,7 +1121,7 @@ export function FluidCanvas() {
                 return { r, g, b };
             }
 
-            function getResolution(resolution) {
+            function getResolution(resolution:any) {
                 let aspectRatio = gl.drawingBufferWidth / gl.drawingBufferHeight;
                 if (aspectRatio < 1)
                     aspectRatio = 1.0 / aspectRatio;
@@ -1135,7 +1135,7 @@ export function FluidCanvas() {
                     return { width: min, height: max };
             }
 
-            function getTextureScale(texture, width, height) {
+            function getTextureScale(texture:any, width:any, height:any) {
                 return { x: width / texture.width, y: height / texture.height };
             }
         }
