@@ -106,16 +106,14 @@ export default async function BookDetailsPage({ params }: Props) {
 
             <div className="flex flex-col sm:flex-row gap-4 pt-8 border-t border-zinc-100 dark:border-zinc-800">
               {book.pdfUrl && (
-                <Button 
-                  asChild
+                <a 
+                  href={book.pdfUrl} target="_blank" rel="noopener noreferrer"
                   className="flex-1 text-white hover:opacity-90 rounded-2xl py-7 font-semibold flex items-center justify-center gap-2 shadow-lg transition-all hover:scale-[1.02] text-lg"
                   style={{ backgroundColor: book.color }}
                 >
-                  <a href={book.pdfUrl} target="_blank" rel="noopener noreferrer">
-                    <BookIcon className="h-5 w-5" />
-                    Read PDF Format
-                  </a>
-                </Button>
+                  <BookIcon className="h-5 w-5" />
+                  Read PDF Format
+                </a>
               )}
               {book.isLoanedBook ? (
                 <Button className="flex-1 bg-emerald-600 text-white hover:bg-emerald-700 dark:bg-emerald-700 dark:hover:bg-emerald-600 rounded-2xl py-7 font-semibold text-lg shadow-lg shadow-emerald-500/20 transition-all hover:scale-[1.02]">
