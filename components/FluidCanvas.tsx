@@ -651,7 +651,7 @@ export function FluidCanvas() {
                 const res = getResolution(config.BLOOM_RESOLUTION);
 
                 const texType = ext.halfFloatTexType;
-                const rgba = ext.formatRGBA;
+                const rgba = ext.formatRGBA!;
                 const filtering = ext.supportLinearFiltering ? gl.LINEAR : gl.NEAREST;
 
                 bloom = createFBO(res.width, res.height, rgba.internalFormat, rgba.format, texType, filtering);
@@ -689,7 +689,7 @@ export function FluidCanvas() {
                     fbo,
                     width: w,
                     height: h,
-                    attach(id) {
+                    attach(id:any) {
                         gl.activeTexture(gl.TEXTURE0 + id);
                         gl.bindTexture(gl.TEXTURE_2D, texture);
                         return id;
@@ -697,7 +697,7 @@ export function FluidCanvas() {
                 };
             }
 
-            function createDoubleFBO(w, h, internalFormat, format, type, param) {
+            function createDoubleFBO(w:any, h:any, internalFormat:any, format:any, type:any, param:any) {
                 let fbo1 = createFBO(w, h, internalFormat, format, type, param);
                 let fbo2 = createFBO(w, h, internalFormat, format, type, param);
 
@@ -714,7 +714,7 @@ export function FluidCanvas() {
                 };
             }
 
-            function resizeFBO(target, w, h, internalFormat, format, type, param) {
+            function resizeFBO(target:any, w:any, h:any, internalFormat:any, format:any, type:any, param:any) {
                 const newFBO = createFBO(w, h, internalFormat, format, type, param);
                 clearProgram.bind();
                 gl.uniform1i(clearProgram.uniforms.uTexture, target.attach(0));
