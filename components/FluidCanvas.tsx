@@ -1019,7 +1019,7 @@ export function FluidCanvas() {
             }
 
             const teardown:any = [];
-            function on(target:any, type:any, handler:any, opts:any) {
+            function on(target:any, type:any, handler:any, opts?:any) {
                 target.addEventListener(type, handler, opts);
                 teardown.push(() => target.removeEventListener(type, handler, opts));
             }
