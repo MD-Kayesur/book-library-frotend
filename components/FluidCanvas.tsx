@@ -110,7 +110,7 @@ export function FluidCanvas() {
                 };
             }
 
-            function getSupportedFormat(gl, internalFormat, format, type) {
+            function getSupportedFormat(gl:any, internalFormat:any, format:any, type:any) {
                 if (!supportRenderTextureFormat(gl, internalFormat, format, type)) {
                     switch (internalFormat) {
                         case gl.R16F:
@@ -578,22 +578,22 @@ export function FluidCanvas() {
                 gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
                 gl.enableVertexAttribArray(0);
 
-                return (destination) => {
+                return (destination:any) => {
                     gl.bindFramebuffer(gl.FRAMEBUFFER, destination);
                     gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);
                 };
             })();
 
-            let simWidth;
-            let simHeight;
-            let dyeWidth;
-            let dyeHeight;
-            let density;
-            let velocity;
-            let divergence;
-            let curl;
-            let pressure;
-            let bloom;
+            let simWidth:any;
+            let simHeight:any;
+            let dyeWidth:any;
+            let dyeHeight:any;
+            let density:any;
+            let velocity:any;
+            let divergence:any;
+            let curl:any;
+            let pressure:any;
+            let bloom:any;
 
             const ditheringTexture = createNoiseTexture(256);
 
@@ -625,9 +625,9 @@ export function FluidCanvas() {
                 dyeHeight = dyeRes.height;
 
                 const texType = ext.halfFloatTexType;
-                const rgba = ext.formatRGBA;
-                const rg = ext.formatRG;
-                const r = ext.formatR;
+                const rgba = ext.formatRGBA!;
+                const rg = ext.formatRG!;
+                const r = ext.formatR!;
                 const filtering = ext.supportLinearFiltering ? gl.LINEAR : gl.NEAREST;
 
                 if (density == null)
@@ -668,7 +668,7 @@ export function FluidCanvas() {
                 }
             }
 
-            function createFBO(w, h, internalFormat, format, type, param) {
+            function createFBO(w:any, h:any, internalFormat:any, format:any, type:any, param:any) {
                 gl.activeTexture(gl.TEXTURE0);
                 const texture = gl.createTexture();
                 gl.bindTexture(gl.TEXTURE_2D, texture);
