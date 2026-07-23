@@ -38,15 +38,15 @@ export function FluidCanvas() {
                 BLOOM_SOFT_KNEE: 0.7
             };
 
-            function pointerPrototype(this: any) {
-                this.id = -1;
-                this.x = 0;
-                this.y = 0;
-                this.dx = 0;
-                this.dy = 0;
-                this.down = false;
-                this.moved = false;
-                this.color = [30, 0, 300];
+            class pointerPrototype {
+                id = -1;
+                x = 0;
+                y = 0;
+                dx = 0;
+                dy = 0;
+                down = false;
+                moved = false;
+                color = [30, 0, 300];
             }
 
             const pointers: any[] = [];
@@ -63,7 +63,7 @@ export function FluidCanvas() {
                 config.BLOOM = false;
             }
 
-            function getWebGLContext(canvas) {
+            function getWebGLContext(canvas:any) {
                 const params = { alpha: true, depth: false, stencil: false, antialias: false, preserveDrawingBuffer: false };
 
                 let gl = canvas.getContext('webgl2', params);
@@ -128,7 +128,7 @@ export function FluidCanvas() {
                 };
             }
 
-            function supportRenderTextureFormat(gl, internalFormat, format, type) {
+            function supportRenderTextureFormat(gl:any, internalFormat:any, format:any, type:any) {
                 const texture = gl.createTexture();
                 gl.bindTexture(gl.TEXTURE_2D, texture);
                 gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
@@ -152,7 +152,9 @@ export function FluidCanvas() {
             }
 
             class GLProgram {
-                constructor(vertexShader, fragmentShader) {
+                uniforms: any;
+                program: any;
+                constructor(vertexShader:any, fragmentShader:any) {
                     this.uniforms = {};
                     this.program = gl.createProgram();
 
@@ -175,7 +177,7 @@ export function FluidCanvas() {
                 }
             }
 
-            function compileShader(type, source) {
+            function compileShader(type:any, source:string) {
                 const shader = gl.createShader(type);
                 gl.shaderSource(shader, source);
                 gl.compileShader(shader);
