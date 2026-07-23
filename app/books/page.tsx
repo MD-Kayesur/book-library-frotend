@@ -33,10 +33,9 @@ export default function BooksPage() {
   );
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 px-4 sm:px-6 lg:px-8 py-12 transition-colors duration-300">
-      <div className="max-w-6xl mx-auto space-y-12">
-        {/* Video Hero Header */}
-        <div className="relative w-full min-h-[calc(100vh-100px)] flex items-center justify-center rounded-3xl overflow-hidden shadow-2xl border border-zinc-200/50 dark:border-white/10">
+    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300">
+      {/* Video Hero Header */}
+      <div className="relative w-full h-[calc(100vh-64px)] min-h-[400px] flex items-center justify-center overflow-hidden border-b border-zinc-200/50 dark:border-white/10 shadow-lg">
           <video 
             src="/Create_a_highly_realistic_cine%20(1).mp4" 
             autoPlay 
@@ -67,7 +66,9 @@ export default function BooksPage() {
           </div>
         </div>
 
-        {/* Popular Books Marquee */}
+        {/* Main Content Area */}
+        <div className="max-w-6xl mx-auto space-y-12 px-4 sm:px-6 lg:px-8 py-12 w-full">
+          {/* Popular Books Marquee */}
         <div className="w-full">
           <PopularBooks />
         </div>
@@ -232,7 +233,7 @@ export default function BooksPage() {
                 No books found
               </h3>
               <p className="text-zinc-500 dark:text-zinc-400 text-sm max-w-xs mx-auto">
-                We couldn't find any books matching "{searchQuery}". Try
+                We couldn&apos;t find any books matching &quot;{searchQuery}&quot;. Try
                 refining your search term.
               </p>
             </div>

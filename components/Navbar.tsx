@@ -11,9 +11,9 @@ export function Navbar() {
   const [mounted, setMounted] = React.useState(false);
   const [isOpen, setIsOpen] = React.useState(false);
 
-  // Avoid hydration mismatch by waiting for mount
   React.useEffect(() => {
-    setMounted(true);
+    // Avoid synchronous setState by using a microtask
+    queueMicrotask(() => setMounted(true));
   }, []);
 
   const toggleTheme = () => {

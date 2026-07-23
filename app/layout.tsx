@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { SmoothScrolling } from "@/components/SmoothScrolling";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,11 +33,13 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 transition-colors duration-300">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Navbar />
-          <main className="flex-1 flex flex-col">{children}</main>
-          <Footer />
-        </ThemeProvider>
+        <SmoothScrolling>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <Navbar />
+            <main className="flex-1 flex flex-col">{children}</main>
+            <Footer />
+          </ThemeProvider>
+        </SmoothScrolling>
       </body>
     </html>
   );

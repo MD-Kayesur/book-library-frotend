@@ -6,6 +6,8 @@ import { Hero } from "@/components/Hero";
 import { Features } from "@/components/Features";
 import { Testimonials } from "@/components/Testimonials";
 import { FAQ } from "@/components/FAQ";
+import { Genres } from "@/components/Genres";
+import { Stats } from "@/components/Stats";
 
 export default function Home() {
   return (
@@ -15,6 +17,12 @@ export default function Home() {
 
         {/* Features Section */}
         <Features />
+
+        {/* Stats Section */}
+        <Stats />
+
+        {/* Genres Section */}
+        <Genres />
 
         {/* Testimonials Section */}
         <Testimonials />

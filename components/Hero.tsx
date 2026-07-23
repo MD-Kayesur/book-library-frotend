@@ -4,6 +4,7 @@ import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { DUMMY_BOOKS } from "@/lib/dummy-data";
 import { motion, AnimatePresence } from "framer-motion";
+import { FluidCanvas } from "./FluidCanvas";
 
 export function Hero({ children }: { children?: React.ReactNode }) {
   const videoRef = React.useRef<HTMLVideoElement>(null);
@@ -61,20 +62,23 @@ export function Hero({ children }: { children?: React.ReactNode }) {
   return (
     <div ref={containerRef} className="relative w-full min-h-[300vh] ">
       {/* Fixed Background Video spanning the entire page */}
-      <div className="fixed inset-0 w-full h-screen overflow-hidden z-0 pointer-events-none">
+      <div className="fixed inset-0 w-full h-screen overflow-hidden z-0">
         {/* Background Video */}
         <video
           ref={videoRef}
-          src="/Create_a_highly_realistic_cine%20(1).mp4"
+          src="/video_2026-07-21_17-48-55.mp4"
           muted
           playsInline
           preload="auto"
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
         />
 
         {/* Ambient Overlays for readability of sections above */}
         <div className="absolute inset-0 bg-black/40 z-10 pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/80 z-10 pointer-events-none" />
+        
+        {/* WebGL Fluid Animation Overlay */}
+        <FluidCanvas />
       </div>
 
       {/* Content Wrapper */}
