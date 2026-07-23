@@ -12,7 +12,7 @@ export function FluidCanvas() {
     if (!canvasRef.current) return;
     const canvas = canvasRef.current;
     
-    function fluidSimulation(canvas) {
+    function fluidSimulation(canvas : any) {
             canvas.width = canvas.clientWidth;
             canvas.height = canvas.clientHeight;
 
@@ -38,7 +38,7 @@ export function FluidCanvas() {
                 BLOOM_SOFT_KNEE: 0.7
             };
 
-            function pointerPrototype() {
+            function pointerPrototype(this: any) {
                 this.id = -1;
                 this.x = 0;
                 this.y = 0;
@@ -49,9 +49,9 @@ export function FluidCanvas() {
                 this.color = [30, 0, 300];
             }
 
-            const pointers = [];
-            const splatStack = [];
-            const bloomFramebuffers = [];
+            const pointers: any[] = [];
+            const splatStack: any[] = [];
+            const bloomFramebuffers: any[] = [];
             pointers.push(new pointerPrototype());
 
             const { gl, ext } = getWebGLContext(canvas);
