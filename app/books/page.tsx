@@ -68,7 +68,7 @@ export default function BooksPage() {
 
         {/* Main Content Area */}
         <div className="max-w-6xl mx-auto space-y-12 px-4 sm:px-6 lg:px-8 py-12 w-full">
-          {/* Popular Books Marquee */}
+          {/* Popular Books Slider */}
         <div className="w-full">
           <PopularBooks />
         </div>
