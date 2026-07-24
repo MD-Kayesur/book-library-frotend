@@ -59,6 +59,13 @@ export function Navbar() {
               >
                 Search
               </Link>
+              
+              <Link
+                href="/all-books"
+                className="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+              >
+                All Books
+              </Link>
             </nav>
             {/* Notification Bell */}
             <button className="relative p-2 rounded-full text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-zinc-50 transition-all duration-200">
@@ -115,6 +122,14 @@ export function Navbar() {
             className="block px-3 py-2 rounded-md text-base font-medium text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-zinc-50 transition-all duration-200"
           >
             Search
+          </Link>
+          
+          <Link
+            href="/all-books"
+            onClick={() => setIsOpen(false)}
+            className="block px-3 py-2 rounded-md text-base font-medium text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-zinc-50 transition-all duration-200"
+          >
+            All Books
           </Link>
         </div>
       )}
