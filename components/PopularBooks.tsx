@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { slugify } from "@/lib/utils";
 import { Star, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
 import { DUMMY_BOOKS } from "@/lib/data/books.data";
 
@@ -87,22 +87,30 @@ export function PopularBooks() {
     offset: ["start start", "end start"] // 0 to 1 over exactly 2.5x the viewport height
   });
   
+  // Apply a spring to the scroll progress so mouse wheel scrolling is buttery smooth
+  const smoothScrollY = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 20,
+    restDelta: 0.001
+  });
+  
   // The sticky container un-sticks at exactly 0.6 progress (150vh / 250vh).
   // ALL animations must finish before 0.6 to avoid getting cut off!
   
   // 1. Text fades out early so it doesn't get huge
-  const textOpacity = useTransform(scrollYProgress, [0, 0.05, 0.15], [1, 1, 0]);
+  const textOpacity = useTransform(smoothScrollY, [0, 0.05, 0.15], [1, 1, 0]);
 
   // 2. The slider zooms in massively
-  const zoomScale = useTransform(scrollYProgress, [0, 0.15, 0.45], [1, 1, 60]);
+  const zoomScale = useTransform(smoothScrollY, [0, 0.15, 0.45], [1, 1, 60]);
   
   // 3. AFTER it has zoomed, it vanishes completely (must finish before 0.6)
-  const sectionOpacity = useTransform(scrollYProgress, [0, 0.45, 0.55], [1, 1, 0]);
+  const sectionOpacity = useTransform(smoothScrollY, [0, 0.45, 0.55], [1, 1, 0]);
   
-  const isPointerActive = useTransform(scrollYProgress, (v) => v > 0.1 ? "none" : "auto");
+  const isPointerActive = useTransform(smoothScrollY, (v) => v > 0.1 ? "none" : "auto");
 
   return (
-    <section ref={sectionRef} className="w-full relative h-[250vh]">
+    <>
+      <section ref={sectionRef} className="w-full relative h-[250vh]">
       <div className="sticky top-0 h-[100vh] min-h-[700px] w-full flex flex-col items-center justify-center overflow-hidden z-40">
         <motion.div 
           className="w-full flex flex-col items-center justify-center origin-center py-8 md:py-16"
@@ -179,40 +187,107 @@ export function PopularBooks() {
             </div>
           </div>
 
-          {/* Book Details Panel Below Slider */}
-          {activeBook && (
-            <motion.div 
-              style={{ opacity: textOpacity }} 
-              className="w-full max-w-2xl px-6 flex flex-col items-center text-center transition-all duration-300 transform min-h-[180px] mt-2"
-            >
-              <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50 mb-2 tracking-tight">
-                {activeBook.title}
-              </h3>
-              <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400 mb-3 flex items-center justify-center gap-3">
-                <span>{activeBook.author}</span>
-                <span className="w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700" />
-                <span>{activeBook.genre}</span>
-                <span className="w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700" />
-                <span className="flex items-center text-amber-500 font-bold">
-                  <Star className="w-3.5 h-3.5 fill-current mr-1" />
-                  {activeBook.rating}
-                </span>
-              </p>
-              <p className="text-zinc-600 dark:text-zinc-300 text-sm max-w-xl leading-relaxed mb-6">
-                {activeBook.description}
-              </p>
-              
-              <Button 
-                className="rounded-full px-8 bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white shadow-lg font-semibold"
-                onClick={() => router.push(`/books/${slugify(activeBook.title)}`)}
-              >
-                <BookOpen className="w-4 h-4 mr-2" />
-                Read Full Details
-              </Button>
-            </motion.div>
-          )}
         </motion.div>
       </div>
     </section>
+
+    {/* Dynamic Book Details Section */}
+      <section 
+        className="w-full min-h-screen relative flex items-center py-20 px-4 sm:px-6 lg:px-8 transition-colors duration-700"
+        style={{ 
+           backgroundColor: activeBook ? `${activeBook.color}15` : 'transparent' 
+        }}
+      >
+        {activeBook && (
+          <div className="max-w-6xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
+            {/* Left: Big Book Cover */}
+            <motion.div 
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, margin: "-100px" }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+              className="flex justify-center md:justify-end"
+            >
+              <div 
+                className="relative w-full max-w-[320px] md:max-w-[400px] aspect-[2/3] rounded-xl shadow-2xl overflow-hidden border border-white/10"
+                style={{ boxShadow: `0 25px 50px -12px ${activeBook.color}66` }}
+              >
+                <img src={activeBook.cover} alt={activeBook.title} className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-white/10 opacity-60 pointer-events-none" />
+              </div>
+            </motion.div>
+
+            {/* Right: Details */}
+            <motion.div 
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: false, margin: "-100px" }}
+              transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+              className="flex flex-col space-y-6 text-left"
+            >
+              <div className="space-y-2">
+                <div 
+                  className="inline-block px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-2 shadow-sm"
+                  style={{ backgroundColor: `${activeBook.color}33`, color: activeBook.color }}
+                >
+                  {activeBook.genre}
+                </div>
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50 leading-tight drop-shadow-sm">
+                  {activeBook.title}
+                </h2>
+                <p className="text-xl md:text-2xl font-medium text-zinc-500 dark:text-zinc-400">
+                  By {activeBook.author}
+                </p>
+              </div>
+
+              <div className="flex items-center gap-4">
+                <div className="flex items-center bg-amber-100 dark:bg-amber-950/30 text-amber-600 dark:text-amber-500 px-3 py-1.5 rounded-lg font-bold">
+                  <Star className="w-5 h-5 fill-current mr-2" />
+                  <span className="text-lg">{activeBook.rating}</span>
+                </div>
+                <div className="text-sm font-medium text-zinc-500">
+                  {activeBook.available_copies > 0 ? (
+                    <span className="text-emerald-600 dark:text-emerald-400 font-bold">{activeBook.available_copies} Copies Available</span>
+                  ) : (
+                    <span className="text-rose-500 font-bold">Currently Unavailable</span>
+                  )}
+                </div>
+              </div>
+
+              <p className="text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-xl">
+                {activeBook.summary || activeBook.description}
+              </p>
+
+              <div className="pt-6 flex flex-wrap gap-4">
+                <Button 
+                  className="px-8 py-6 rounded-xl text-white font-bold text-lg shadow-lg transition-all hover:brightness-110 hover:scale-105"
+                  style={{ backgroundColor: activeBook.color }}
+                  onClick={() => router.push(`/books/${slugify(activeBook.title)}`)}
+                >
+                  <BookOpen className="w-5 h-5 mr-3" />
+                  Read Book
+                </Button>
+                
+                {activeBook.pdfUrl && (
+                  <Button 
+                    variant="outline"
+                    className="px-8 py-6 rounded-xl font-bold text-lg border-2 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all hover:scale-105"
+                    onClick={() => window.open(activeBook.pdfUrl, '_blank')}
+                  >
+                    Preview PDF
+                  </Button>
+                )}
+              </div>
+            </motion.div>
+          </div>
+        )}
+        
+        {/* Subtle background glow */}
+        <div 
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-[120px] opacity-30 pointer-events-none z-0"
+          style={{ backgroundColor: activeBook?.color }}
+        />
+      </section>
+    </>
   );
 }
