@@ -6,7 +6,7 @@ import { PopularBooks } from "@/components/PopularBooks";
 
 export default function BooksPage() {
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300">
+    <div className="min-h-screen transition-colors duration-300">
       {/* Video Hero Header */}
       <div className="relative w-full h-[calc(100vh-64px)] min-h-[400px] flex items-center justify-center overflow-hidden border-b border-zinc-200/50 dark:border-white/10 shadow-lg">
           <video 

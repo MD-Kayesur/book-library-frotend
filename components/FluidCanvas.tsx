@@ -1145,5 +1145,5 @@ export function FluidCanvas() {
     fluidSimulation(canvas);
   }, []);
 
-  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full z-10 pointer-events-auto mix-blend-screen" style={{ opacity: 0.8 }} />;
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full z-10 pointer-events-none mix-blend-screen" style={{ opacity: 0.8 }} />;
 }

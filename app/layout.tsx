@@ -6,6 +6,8 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { SmoothScrolling } from "@/components/SmoothScrolling";
 
+import { FluidCanvas } from "@/components/FluidCanvas";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -36,7 +38,11 @@ export default function RootLayout({
         <SmoothScrolling>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <Navbar />
-            <main className="flex-1 flex flex-col">{children}</main>
+            {/* Global WebGL Fluid Overlay */}
+            <div className="fixed inset-0 z-50 pointer-events-none mix-blend-screen">
+              <FluidCanvas />
+            </div>
+            <main className="flex-1 flex flex-col relative z-10">{children}</main>
             <Footer />
           </ThemeProvider>
         </SmoothScrolling>
