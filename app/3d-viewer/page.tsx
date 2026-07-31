@@ -2,66 +2,96 @@
 
 import * as React from "react";
 import { Book3DViewer } from "@/components/Book3DViewer";
+import { Shoe3DViewer } from "@/components/Shoe3DViewer";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { Box, Sparkles, Move3d, MousePointerClick, ShieldCheck } from "lucide-react";
+import { Move3d, MousePointerClick, Sparkles, Box, Footprints, BookOpen } from "lucide-react";
 
 export default function ThreeDViewerPage() {
+  const [activeTab, setActiveTab] = React.useState<"book" | "shoe">("shoe");
+
   return (
     <div className="min-h-screen bg-zinc-950 text-white font-sans flex flex-col">
       <Navbar />
 
-      <main className="flex-1 max-w-7xl mx-auto px-6 py-12 w-full flex flex-col gap-10 mt-16">
+      <main className="flex-1 max-w-7xl mx-auto px-6 py-12 w-full flex flex-col gap-8 mt-16">
         {/* Header Section */}
         <div className="flex flex-col items-center text-center space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-sm font-medium">
             <Move3d className="w-4 h-4" />
             <span>Interactive WebGL 3D Experience</span>
           </div>
 
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white">
-            Real-Time <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-500">3D Book Showcase</span>
+            Real-Time <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-400 to-pink-500">3D Product Showcase</span>
           </h1>
 
           <p className="max-w-2xl text-lg text-zinc-400 font-light">
-            Built with Three.js and WebGL. Click and drag with your mouse to rotate the model, scroll to zoom in/out, and customize materials and lighting in real time.
+            Explore 3D models with unrestricted mouse rotation. Drag up and down to inspect the top and bottom sole ("opra-nicha") from every angle.
           </p>
+
+          {/* Model Switcher Tabs */}
+          <div className="flex items-center gap-2 bg-zinc-900/90 p-1.5 rounded-2xl border border-zinc-800 shadow-xl mt-4">
+            <button
+              onClick={() => setActiveTab("shoe")}
+              className={`flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-sm transition-all ${
+                activeTab === "shoe"
+                  ? "bg-cyan-500 text-zinc-950 shadow-lg shadow-cyan-500/25"
+                  : "text-zinc-400 hover:text-white"
+              }`}
+            >
+              <Footprints className="w-4 h-4" />
+              <span>👟 3D Shoe (Juta) Viewer</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab("book")}
+              className={`flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-sm transition-all ${
+                activeTab === "book"
+                  ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/25"
+                  : "text-zinc-400 hover:text-white"
+              }`}
+            >
+              <BookOpen className="w-4 h-4" />
+              <span>📚 3D Book Viewer</span>
+            </button>
+          </div>
         </div>
 
-        {/* 3D Canvas Showcase Component */}
+        {/* Active 3D Component */}
         <div className="w-full">
-          <Book3DViewer />
+          {activeTab === "shoe" ? <Shoe3DViewer /> : <Book3DViewer />}
         </div>
 
         {/* Feature Cards Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6">
           <div className="p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 flex flex-col gap-3">
-            <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
+            <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
               <MousePointerClick className="w-5 h-5" />
             </div>
-            <h3 className="text-lg font-bold text-white">Orbit Mouse Controls</h3>
+            <h3 className="text-lg font-bold text-white">Full Opra-Nicha Mouse Orbit</h3>
             <p className="text-sm text-zinc-400">
-              Full 360-degree rotation using left-click drag, precise zoom via mouse scroll wheel, and camera panning with right-click drag.
+              Drag mouse UP and DOWN to flip and view the bottom sole tread ("nicha") or look straight down from the top ("opra").
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 flex flex-col gap-3">
+            <div className="w-10 h-10 rounded-xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400">
+              <Sparkles className="w-5 h-5" />
+            </div>
+            <h3 className="text-lg font-bold text-white">Multi-Part Shoe Customizer</h3>
+            <p className="text-sm text-zinc-400">
+              Customize upper body color, bottom sole color, and lace/accent colors with instant WebGL shader rendering.
             </p>
           </div>
 
           <div className="p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 flex flex-col gap-3">
             <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
-              <Sparkles className="w-5 h-5" />
-            </div>
-            <h3 className="text-lg font-bold text-white">Live Material Customization</h3>
-            <p className="text-sm text-zinc-400">
-              Change book cover colors on the fly, adjust gold metallic accents, and toggle open/close book cover physics.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 flex flex-col gap-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
               <Box className="w-5 h-5" />
             </div>
-            <h3 className="text-lg font-bold text-white">Studio Lighting & Shadows</h3>
+            <h3 className="text-lg font-bold text-white">1-Click Camera Presets</h3>
             <p className="text-sm text-zinc-400">
-              Real-time soft PCF shadow maps, specular highlights, environment lighting presets, and wireframe diagnostic mode.
+              Instant buttons for "Sole (Nicha)", "Top (Opra)", and "Reset" angles with smooth camera position interpolation.
             </p>
           </div>
         </div>
