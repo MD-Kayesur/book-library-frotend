@@ -66,6 +66,13 @@ export function Navbar() {
               >
                 All Books
               </Link>
+              <Link
+                href="/3d-viewer"
+                className="text-sm font-medium text-indigo-500 dark:text-indigo-400 font-semibold hover:text-indigo-600 dark:hover:text-indigo-300 transition-colors flex items-center gap-1"
+              >
+                <span>3D Viewer</span>
+                <span className="px-1.5 py-0.5 text-[10px] bg-indigo-500/10 text-indigo-400 rounded-full border border-indigo-500/20">3D</span>
+              </Link>
             </nav>
             {/* Notification Bell */}
             <button className="relative p-2 rounded-full text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-zinc-50 transition-all duration-200">
@@ -130,6 +137,13 @@ export function Navbar() {
             className="block px-3 py-2 rounded-md text-base font-medium text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-zinc-50 transition-all duration-200"
           >
             All Books
+          </Link>
+          <Link
+            href="/3d-viewer"
+            onClick={() => setIsOpen(false)}
+            className="block px-3 py-2 rounded-md text-base font-medium text-indigo-500 dark:text-indigo-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all duration-200"
+          >
+            3D Viewer
           </Link>
         </div>
       )}
