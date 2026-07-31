@@ -240,14 +240,6 @@ export function Book3DViewer() {
     line2.position.set(width / 2 - coverThickness / 2, -0.75, coverThickness / 2 + 0.01);
     frontCoverGroup.add(line2);
 
-    // Bookmark Ribbon hanging out from bottom
-    const ribbonGeo = new THREE.BoxGeometry(0.12, 0.8, 0.01);
-    const ribbonMat = new THREE.MeshStandardMaterial({ color: 0xd4af37, roughness: 0.4 });
-    const ribbonMesh = new THREE.Mesh(ribbonGeo, ribbonMat);
-    ribbonMesh.position.set(0.2, -height / 2 - 0.25, 0);
-    ribbonMesh.rotation.z = -0.15;
-    bookGroup.add(ribbonMesh);
-
     bookGroup.add(frontCoverGroup);
 
     // 6. Ground Shadow Plane

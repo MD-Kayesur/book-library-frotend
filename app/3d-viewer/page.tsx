@@ -3,8 +3,6 @@
 import * as React from "react";
 import { Book3DViewer } from "@/components/Book3DViewer";
 import { Shoe3DViewer } from "@/components/Shoe3DViewer";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
 import { Move3d, MousePointerClick, Sparkles, Box, Footprints, BookOpen } from "lucide-react";
 
 export default function ThreeDViewerPage() {
@@ -12,9 +10,7 @@ export default function ThreeDViewerPage() {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-white font-sans flex flex-col">
-      <Navbar />
-
-      <main className="flex-1 max-w-7xl mx-auto px-6 py-12 w-full flex flex-col gap-8 mt-16">
+      <main className="flex-1 max-w-7xl mx-auto px-6 py-12 w-full flex flex-col gap-8">
         {/* Header Section */}
         <div className="flex flex-col items-center text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-sm font-medium">
@@ -96,8 +92,6 @@ export default function ThreeDViewerPage() {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }
