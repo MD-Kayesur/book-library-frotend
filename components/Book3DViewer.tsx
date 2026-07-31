@@ -16,18 +16,18 @@ import {
 
 // Preset Color Palettes
 const COLOR_PRESETS = [
-  { name: "Midnight Sapphire", hex: "#1e3a8a", goldFinish: true },
-  { name: "Crimson Royal", hex: "#881337", goldFinish: true },
-  { name: "Emerald Cyber", hex: "#064e3b", goldFinish: true },
-  { name: "Obsidian Gold", hex: "#18181b", goldFinish: true },
-  { name: "Sunset Copper", hex: "#7c2d12", goldFinish: true },
+  { name: "Midnight Sapphire", hex: "#1e3a8a" },
+  { name: "Crimson Royal", hex: "#881337" },
+  { name: "Emerald Cyber", hex: "#064e3b" },
+  { name: "Obsidian Gold", hex: "#18181b" },
+  { name: "Sunset Copper", hex: "#7c2d12" },
 ];
 
 // Lighting Environment Presets
 const LIGHTING_PRESETS = [
-  { id: "studio", name: "Studio White", mainColor: 0xffffff, fill: 0x818cf8, intensity: 1.8 },
-  { id: "warm", name: "Warm Sunset", mainColor: 0xfde047, fill: 0xf97316, intensity: 2.0 },
-  { id: "neon", name: "Cyber Neon", mainColor: 0x38bdf8, fill: 0xe0e7ff, intensity: 2.2 },
+  { id: "studio", name: "Studio White", mainColor: 0xffffff, intensity: 1.8 },
+  { id: "warm", name: "Warm Sunset", mainColor: 0xfde047, intensity: 2.0 },
+  { id: "neon", name: "Cyber Neon", mainColor: 0x38bdf8, intensity: 2.2 },
 ];
 
 export function Book3DViewer() {
@@ -35,28 +35,35 @@ export function Book3DViewer() {
   const rendererRef = React.useRef<THREE.WebGLRenderer | null>(null);
   const controlsRef = React.useRef<OrbitControls | null>(null);
   const bookGroupRef = React.useRef<THREE.Group | null>(null);
+  const frontCoverGroupRef = React.useRef<THREE.Group | null>(null);
   const coverMaterialsRef = React.useRef<THREE.MeshStandardMaterial[]>([]);
-  const frontCoverMeshRef = React.useRef<THREE.Mesh | null>(null);
   const dirLightRef = React.useRef<THREE.DirectionalLight | null>(null);
+  const animFrameIdRef = React.useRef<number | null>(null);
 
   // UI States
   const [selectedColor, setSelectedColor] = React.useState(COLOR_PRESETS[0].hex);
   const [activeLighting, setActiveLighting] = React.useState("studio");
   const [autoRotate, setAutoRotate] = React.useState(true);
   const [isBookOpen, setIsBookOpen] = React.useState(false);
-  const [roughness, setRoughness] = React.useState(0.3);
-  const [metalness, setMetalness] = React.useState(0.1);
+  const [roughness] = React.useState(0.3);
+  const [metalness] = React.useState(0.1);
   const [wireframe, setWireframe] = React.useState(false);
   const [fullscreen, setFullscreen] = React.useState(false);
 
-  // Setup Three.js Scene
+  const autoRotateRef = React.useRef(autoRotate);
+  autoRotateRef.current = autoRotate;
+
+  const isBookOpenRef = React.useRef(isBookOpen);
+  isBookOpenRef.current = isBookOpen;
+
+  // Setup Three.js Scene ONCE on mount
   React.useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
     // 1. Scene & Camera
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x09090b); // Tailwind zinc-950
+    scene.background = new THREE.Color(0x09090b);
     scene.fog = new THREE.FogExp2(0x09090b, 0.04);
 
     const aspect = container.clientWidth / container.clientHeight;
@@ -72,7 +79,6 @@ export function Book3DViewer() {
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.1;
 
-    // Clear previous canvas if re-rendering
     container.innerHTML = "";
     container.appendChild(renderer.domElement);
     rendererRef.current = renderer;
@@ -83,7 +89,7 @@ export function Book3DViewer() {
     controls.dampingFactor = 0.05;
     controls.maxDistance = 10;
     controls.minDistance = 2.5;
-    controls.maxPolarAngle = Math.PI / 1.9; // Prevent camera going under floor
+    controls.maxPolarAngle = Math.PI / 1.9;
     controls.target.set(0, 0, 0);
     controlsRef.current = controls;
 
@@ -121,7 +127,6 @@ export function Book3DViewer() {
 
     coverMaterialsRef.current = [];
 
-    // Shared Cover Material
     const createCoverMaterial = () => {
       const mat = new THREE.MeshStandardMaterial({
         color: new THREE.Color(selectedColor),
@@ -133,42 +138,21 @@ export function Book3DViewer() {
       return mat;
     };
 
-    // Gold Metallic Accent Material
     const goldMaterial = new THREE.MeshStandardMaterial({
       color: 0xd4af37,
       metalness: 0.9,
       roughness: 0.2,
     });
 
-    // Page Block (Inner Paper)
+    // Page Block
     const pageWidth = width - 0.08;
     const pageHeight = height - 0.08;
     const pageThickness = thickness - coverThickness * 2;
 
     const pagesGeo = new THREE.BoxGeometry(pageWidth, pageHeight, pageThickness);
-    
-    // Create textured canvas for page edges
-    const pageCanvas = document.createElement("canvas");
-    pageCanvas.width = 128;
-    pageCanvas.height = 128;
-    const ctx = pageCanvas.getContext("2d");
-    if (ctx) {
-      ctx.fillStyle = "#fdfbf7";
-      ctx.fillRect(0, 0, 128, 128);
-      ctx.fillStyle = "#e5e0d8";
-      for (let i = 0; i < 128; i += 2) {
-        ctx.fillRect(0, i, 128, 1);
-      }
-    }
-    const pageTexture = new THREE.CanvasTexture(pageCanvas);
-    pageTexture.wrapS = THREE.RepeatWrapping;
-    pageTexture.wrapT = THREE.RepeatWrapping;
-    pageTexture.repeat.set(1, 10);
-
     const pagesMat = new THREE.MeshStandardMaterial({
       color: 0xf5f2eb,
       roughness: 0.9,
-      map: pageTexture,
     });
 
     const pagesMesh = new THREE.Mesh(pagesGeo, pagesMat);
@@ -186,7 +170,7 @@ export function Book3DViewer() {
     backCoverMesh.receiveShadow = true;
     bookGroup.add(backCoverMesh);
 
-    // Spine (Left Edge)
+    // Spine
     const spineGeo = new THREE.BoxGeometry(coverThickness, height, thickness);
     const spineMat = createCoverMaterial();
     const spineMesh = new THREE.Mesh(spineGeo, spineMat);
@@ -205,9 +189,10 @@ export function Book3DViewer() {
     spineRibbon2.position.set(-width / 2 + coverThickness / 2, -height / 3, 0);
     bookGroup.add(spineRibbon2);
 
-    // Front Cover (Grouped for opening animation pivot at left edge)
+    // Front Cover (Grouped for opening pivot)
     const frontCoverGroup = new THREE.Group();
     frontCoverGroup.position.set(-width / 2 + coverThickness / 2, 0, thickness / 2 - coverThickness / 2);
+    frontCoverGroupRef.current = frontCoverGroup;
 
     const frontCoverGeo = new THREE.BoxGeometry(width, height, coverThickness);
     const frontCoverMat = createCoverMaterial();
@@ -216,7 +201,6 @@ export function Book3DViewer() {
     frontCoverMesh.castShadow = true;
     frontCoverMesh.receiveShadow = true;
     frontCoverGroup.add(frontCoverMesh);
-    frontCoverMeshRef.current = frontCoverMesh;
 
     // Gold Emblem / Title Frame on Front Cover
     const emblemGeo = new THREE.BoxGeometry(1.2, 1.2, 0.02);
@@ -224,13 +208,11 @@ export function Book3DViewer() {
     emblemMesh.position.set(width / 2 - coverThickness / 2, 0.4, coverThickness / 2 + 0.01);
     frontCoverGroup.add(emblemMesh);
 
-    // Inner Emblem Inset
     const innerEmblemGeo = new THREE.BoxGeometry(1.0, 1.0, 0.03);
     const innerEmblemMesh = new THREE.Mesh(innerEmblemGeo, createCoverMaterial());
     innerEmblemMesh.position.set(width / 2 - coverThickness / 2, 0.4, coverThickness / 2 + 0.015);
     frontCoverGroup.add(innerEmblemMesh);
 
-    // Book Title Decorative Lines (Gold)
     const lineGeo = new THREE.BoxGeometry(1.2, 0.04, 0.02);
     const line1 = new THREE.Mesh(lineGeo, goldMaterial);
     line1.position.set(width / 2 - coverThickness / 2, -0.6, coverThickness / 2 + 0.01);
@@ -242,7 +224,7 @@ export function Book3DViewer() {
 
     bookGroup.add(frontCoverGroup);
 
-    // 6. Ground Shadow Plane
+    // Ground Shadow Plane
     const shadowPlaneGeo = new THREE.PlaneGeometry(15, 15);
     const shadowPlaneMat = new THREE.ShadowMaterial({ opacity: 0.45 });
     const shadowPlane = new THREE.Mesh(shadowPlaneGeo, shadowPlaneMat);
@@ -251,25 +233,23 @@ export function Book3DViewer() {
     shadowPlane.receiveShadow = true;
     scene.add(shadowPlane);
 
-    // Subtle Grid Helper for Depth Perception
+    // Grid Helper
     const grid = new THREE.GridHelper(12, 24, 0x3f3f46, 0x27272a);
     grid.position.y = -height / 2 - 0.02;
     scene.add(grid);
 
-    // 7. Animation Loop
-    let animationFrameId: number;
-
+    // Single Animation Loop
     const animate = () => {
-      animationFrameId = requestAnimationFrame(animate);
+      animFrameIdRef.current = requestAnimationFrame(animate);
 
-      // Handle Auto Rotation
-      if (autoRotate && bookGroupRef.current) {
+      if (autoRotateRef.current && bookGroupRef.current) {
         bookGroupRef.current.rotation.y += 0.006;
       }
 
-      // Smooth Front Cover Open Animation
-      const targetAngle = isBookOpen ? -Math.PI * 0.75 : 0;
-      frontCoverGroup.rotation.y += (targetAngle - frontCoverGroup.rotation.y) * 0.1;
+      if (frontCoverGroupRef.current) {
+        const targetAngle = isBookOpenRef.current ? -Math.PI * 0.75 : 0;
+        frontCoverGroupRef.current.rotation.y += (targetAngle - frontCoverGroupRef.current.rotation.y) * 0.1;
+      }
 
       controls.update();
       renderer.render(scene, camera);
@@ -277,7 +257,6 @@ export function Book3DViewer() {
 
     animate();
 
-    // 8. Responsive Resize Handler
     const handleResize = () => {
       if (!container || !rendererRef.current) return;
       const w = container.clientWidth;
@@ -291,12 +270,21 @@ export function Book3DViewer() {
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      cancelAnimationFrame(animationFrameId);
+      if (animFrameIdRef.current) {
+        cancelAnimationFrame(animFrameIdRef.current);
+      }
+      scene.traverse((obj) => {
+        if ((obj as THREE.Mesh).isMesh) {
+          const mesh = obj as THREE.Mesh;
+          mesh.geometry.dispose();
+        }
+      });
+      renderer.forceContextLoss();
       renderer.dispose();
     };
-  }, [isBookOpen]);
+  }, []);
 
-  // Update Materials when Color / Metallic / Roughness / Wireframe changes
+  // Sync Materials when UI State changes
   React.useEffect(() => {
     coverMaterialsRef.current.forEach((mat) => {
       mat.color.set(selectedColor);
@@ -307,7 +295,6 @@ export function Book3DViewer() {
     });
   }, [selectedColor, roughness, metalness, wireframe]);
 
-  // Update Lighting Presets
   const handleLightingChange = (presetId: string) => {
     setActiveLighting(presetId);
     const preset = LIGHTING_PRESETS.find((p) => p.id === presetId);
@@ -317,7 +304,6 @@ export function Book3DViewer() {
     }
   };
 
-  // Reset Camera View
   const handleResetCamera = () => {
     if (controlsRef.current && bookGroupRef.current) {
       controlsRef.current.reset();
@@ -331,16 +317,13 @@ export function Book3DViewer() {
         fullscreen ? "fixed inset-0 z-50 rounded-none h-screen" : "h-[650px]"
       }`}
     >
-      {/* 3D WebGL Canvas Container */}
       <div ref={containerRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
 
-      {/* Top Overlay Badge - Mouse Instructions */}
       <div className="absolute top-4 left-4 z-10 flex items-center gap-2 bg-zinc-900/80 backdrop-blur-md px-3.5 py-2 rounded-full border border-zinc-800 text-xs font-medium text-zinc-300 shadow-lg">
         <MousePointer className="w-4 h-4 text-indigo-400 animate-pulse" />
         <span>Drag to rotate 3D | Scroll to zoom | Right-click to pan</span>
       </div>
 
-      {/* Top Right Quick Controls */}
       <div className="absolute top-4 right-4 z-10 flex items-center gap-2">
         <button
           onClick={handleResetCamera}
@@ -358,10 +341,7 @@ export function Book3DViewer() {
         </button>
       </div>
 
-      {/* Bottom Floating Control Panel */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 w-[92%] max-w-2xl bg-zinc-900/90 backdrop-blur-xl border border-zinc-800 p-4 rounded-2xl shadow-2xl flex flex-col md:flex-row items-center justify-between gap-4">
-        
-        {/* Color Palette Presets */}
         <div className="flex flex-col gap-1.5 w-full md:w-auto">
           <span className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
             <Palette className="w-3.5 h-3.5 text-indigo-400" /> Cover Color
@@ -383,7 +363,6 @@ export function Book3DViewer() {
           </div>
         </div>
 
-        {/* Lighting Selector */}
         <div className="flex flex-col gap-1.5 w-full md:w-auto">
           <span className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
             <Sun className="w-3.5 h-3.5 text-amber-400" /> Lighting
@@ -405,7 +384,6 @@ export function Book3DViewer() {
           </div>
         </div>
 
-        {/* Action Toggles (Auto Rotate, Open Book, Wireframe) */}
         <div className="flex items-center gap-2 w-full md:w-auto justify-end border-t md:border-t-0 border-zinc-800 pt-2 md:pt-0">
           <button
             onClick={() => setAutoRotate(!autoRotate)}
@@ -443,7 +421,6 @@ export function Book3DViewer() {
             <Eye className="w-4 h-4" />
           </button>
         </div>
-
       </div>
     </div>
   );

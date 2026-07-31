@@ -340,6 +340,12 @@ export function Alphafly3DViewer() {
     return () => {
       window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(animationFrameId);
+      scene.traverse((obj) => {
+        if ((obj as THREE.Mesh).isMesh) {
+          (obj as THREE.Mesh).geometry.dispose();
+        }
+      });
+      renderer.forceContextLoss();
       renderer.dispose();
     };
   }, []);
