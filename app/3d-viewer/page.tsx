@@ -3,11 +3,12 @@
 import * as React from "react";
 import { Alphafly3DViewer } from "@/components/Alphafly3DViewer";
 import { Shoe3DViewer } from "@/components/Shoe3DViewer";
+import { ShoeViewer as GeckoCharacterViewer } from "@/components/snackanimaiton";
 import { Book3DViewer } from "@/components/Book3DViewer";
 import { Move3d, MousePointerClick, Sparkles, Box, Footprints, BookOpen, Zap } from "lucide-react";
 
 export default function ThreeDViewerPage() {
-  const [activeTab, setActiveTab] = React.useState<"alphafly" | "navy" | "book">("alphafly");
+  const [activeTab, setActiveTab] = React.useState<"alphafly" | "navy" | "gecko" | "book">("gecko");
 
   return (
     <div className="min-h-screen bg-zinc-950 text-white font-sans flex flex-col">
@@ -54,6 +55,18 @@ export default function ThreeDViewerPage() {
             </button>
 
             <button
+              onClick={() => setActiveTab("gecko")}
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm transition-all ${
+                activeTab === "gecko"
+                  ? "bg-emerald-500 text-zinc-950 shadow-lg shadow-emerald-500/25"
+                  : "text-zinc-400 hover:text-white"
+              }`}
+            >
+              <Sparkles className="w-4 h-4" />
+              <span>🦎 Leopard Gecko 3D Character</span>
+            </button>
+
+            <button
               onClick={() => setActiveTab("book")}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm transition-all ${
                 activeTab === "book"
@@ -71,6 +84,7 @@ export default function ThreeDViewerPage() {
         <div className="w-full">
           {activeTab === "alphafly" && <Alphafly3DViewer />}
           {activeTab === "navy" && <Shoe3DViewer />}
+          {activeTab === "gecko" && <GeckoCharacterViewer />}
           {activeTab === "book" && <Book3DViewer />}
         </div>
 
