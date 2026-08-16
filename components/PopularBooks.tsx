@@ -175,7 +175,7 @@ export function PopularBooks() {
             <p className="text-sm text-zinc-500 mt-2">Scroll horizontally to explore</p>
           </motion.div>
 
-          <div className="relative w-full flex items-center justify-center overflow-hidden h-[360px]">
+          <div className="relative w-full flex items-center justify-center overflow-hidden h-[500px]">
             <div 
               ref={scrollRef}
               onScroll={handleScroll}
@@ -194,7 +194,7 @@ export function PopularBooks() {
                     key={`${book.id}-${index}`} 
                     className="flex flex-col items-center flex-shrink-0 group snap-center"
                     style={{ 
-                      width: '200px',
+                      width: '260px',
                       transform: `scale(${t.scale}) translateY(${t.translateY}px)`,
                       opacity: t.opacity,
                       filter: `blur(${t.blur}px) brightness(${t.brightness})`,
@@ -217,7 +217,7 @@ export function PopularBooks() {
                   >
                     {/* Book Cover Artwork Container */}
                     <div 
-                      className="relative w-[200px] h-[290px] rounded-t-lg rounded-br-lg border border-zinc-200/20 shadow-2xl overflow-hidden flex flex-col justify-between cursor-pointer"
+                      className="relative w-[260px] h-[380px] rounded-t-lg rounded-br-lg border border-zinc-200/20 shadow-2xl overflow-hidden flex flex-col justify-between cursor-pointer"
                       style={{ backgroundColor: book.color }}
                     >
                       <img src={book.cover} alt={book.title} draggable={false} className="absolute inset-0 w-full h-full object-cover z-10 pointer-events-none" />

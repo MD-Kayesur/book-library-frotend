@@ -43,7 +43,7 @@ export default function RootLayout({
               <FluidCanvas />
             </div>
             <main className="flex-1 flex flex-col relative z-10">{children}</main>
-            <Footer />
+            {/* <Footer /> */}
           </ThemeProvider>
         </SmoothScrolling>
       </body>
