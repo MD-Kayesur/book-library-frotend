@@ -74,8 +74,8 @@ export function Hero({ children }: { children?: React.ReactNode }) {
         />
 
         {/* Ambient Overlays for readability of sections above */}
-        <div className="absolute inset-0 bg-black/40 z-10 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/80 z-10 pointer-events-none" />
+        <div className="absolute inset-0   z-10 pointer-events-none" />
+        <div className="absolute inset-0   z-10 pointer-events-none" />
       </div>
 
       {/* Content Wrapper */}
