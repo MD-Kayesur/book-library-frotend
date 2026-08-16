@@ -18,6 +18,51 @@ export function PopularBooks() {
 
   const scrollItems = [...DUMMY_BOOKS, ...DUMMY_BOOKS, ...DUMMY_BOOKS];
 
+  const isDown = React.useRef(false);
+  const startX = React.useRef(0);
+  const scrollLeft = React.useRef(0);
+  const isDragging = React.useRef(false);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    isDown.current = true;
+    isDragging.current = false;
+    if (!scrollRef.current) return;
+    startX.current = e.pageX - scrollRef.current.offsetLeft;
+    scrollLeft.current = scrollRef.current.scrollLeft;
+    scrollRef.current.style.scrollBehavior = 'auto';
+    scrollRef.current.style.scrollSnapType = 'none';
+    scrollRef.current.style.cursor = 'grabbing';
+  };
+
+  const handleMouseLeave = () => {
+    isDown.current = false;
+    if (scrollRef.current) {
+      scrollRef.current.style.scrollBehavior = 'smooth';
+      scrollRef.current.style.scrollSnapType = 'x mandatory';
+      scrollRef.current.style.cursor = 'grab';
+    }
+  };
+
+  const handleMouseUp = () => {
+    isDown.current = false;
+    if (scrollRef.current) {
+      scrollRef.current.style.scrollBehavior = 'smooth';
+      scrollRef.current.style.scrollSnapType = 'x mandatory';
+      scrollRef.current.style.cursor = 'grab';
+    }
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDown.current || !scrollRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX.current) * 2;
+    if (Math.abs(walk) > 5) {
+      isDragging.current = true;
+    }
+    scrollRef.current.scrollLeft = scrollLeft.current - walk;
+  };
+
   const handleScroll = React.useCallback(() => {
     if (!scrollRef.current) return;
     const container = scrollRef.current;
@@ -131,11 +176,14 @@ export function PopularBooks() {
           </motion.div>
 
           <div className="relative w-full flex items-center justify-center overflow-hidden h-[360px]">
-            {/* Horizontal Scroll Track */}
             <div 
               ref={scrollRef}
               onScroll={handleScroll}
-              className="flex w-full h-full overflow-x-auto gap-4 px-[calc(50%-100px)] pt-10 pb-4 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] items-start scroll-smooth"
+              onMouseDown={handleMouseDown}
+              onMouseLeave={handleMouseLeave}
+              onMouseUp={handleMouseUp}
+              onMouseMove={handleMouseMove}
+              className="flex w-full h-full overflow-x-auto gap-4 px-[calc(50%-100px)] pt-10 pb-4 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] items-start scroll-smooth cursor-grab active:cursor-grabbing"
             >
               {scrollItems.map((book, index) => {
                 const t = transforms[index] || { scale: 1, opacity: 1, translateY: 0, blur: 0, brightness: 1 };
@@ -154,6 +202,7 @@ export function PopularBooks() {
                       zIndex: Math.round(t.scale * 100),
                     }}
                     onClick={() => {
+                      if (isDragging.current) return;
                       if (!isCenter) {
                         const container = scrollRef.current;
                         if (container) {
@@ -171,7 +220,7 @@ export function PopularBooks() {
                       className="relative w-[200px] h-[290px] rounded-t-lg rounded-br-lg border border-zinc-200/20 shadow-2xl overflow-hidden flex flex-col justify-between cursor-pointer"
                       style={{ backgroundColor: book.color }}
                     >
-                      <img src={book.cover} alt={book.title} className="absolute inset-0 w-full h-full object-cover z-10" />
+                      <img src={book.cover} alt={book.title} draggable={false} className="absolute inset-0 w-full h-full object-cover z-10 pointer-events-none" />
 
                       <div className="absolute left-1.5 top-0 bottom-0 w-[1px] bg-white/20 dark:bg-black/20 z-20" />
                       <div className="absolute left-0 top-0 bottom-0 w-[8px] bg-gradient-to-r from-black/40 to-transparent z-20" />
